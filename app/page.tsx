@@ -1,11 +1,14 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import PriceTicker from "@/components/PriceTicker";
+import InstitutionalMetrics from "@/components/metrics/InstitutionalMetrics";
+// import PriceTicker from "@/components/PriceTicker";
 import Solutions from "@/components/Solutions";
+
 import Infrastructure from "@/components/Infrastructure";
 import Clients from "@/components/Clients";
-import Onboarding from "@/components/Onboarding";
-import Contact from "@/components/Contact";
+import JKVConnectivity from "@/components/JKVConnectivity";
+// import Onboarding from "@/components/Onboarding";
+// import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -14,12 +17,15 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <PriceTicker />
+        <InstitutionalMetrics />
+        {/* <PriceTicker /> */}
         <Solutions />
-        <Infrastructure />
+
         <Clients />
-        <Onboarding />
-        <Contact />
+        <Infrastructure />
+        <JKVConnectivity />
+        {/* <Onboarding /> */}
+        {/* <Contact /> */}
       </main>
       <Footer />
     </>

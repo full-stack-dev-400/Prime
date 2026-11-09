@@ -1,43 +1,112 @@
-import GlassArchitecture from "./GlassArchitecture";
+"use client";
+
+import { useEffect, useState, type SyntheticEvent } from "react";
+import styles from "./hero.module.css";
+
+const HERO_MEDIA = {
+  webm: "/JKVGlobalHrobg.webm",
+  mp4: "/JKVGlobalHrobg.mp4",
+  poster: "/JKVGlobalHrobg.webp",
+} as const;
+
+type VideoFormat = "webm" | "mp4";
 
 export default function Hero() {
-  return (
-    <section className="relative overflow-hidden pt-28 md:pt-32">
-      {/* background wash */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,#152A54_0%,transparent_55%)]" />
-      <div className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(#A9B5CC_1px,transparent_1px),linear-gradient(90deg,#A9B5CC_1px,transparent_1px)] [background-size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+  const [allowMotion, setAllowMotion] = useState(false);
+  const [videoFormat, setVideoFormat] = useState<VideoFormat | null>("webm");
+  const [videoReady, setVideoReady] = useState(false);
 
-      <div className="container-site relative grid items-center gap-6 pb-16 lg:grid-cols-[1.05fr_1fr] lg:pb-24">
-        <div className="max-w-xl">
-          <p className="inline-flex items-center gap-2 rounded-full border border-teal/30 bg-teal-tint px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-teal-bright">
-            <span className="live-dot h-1.5 w-1.5 rounded-full bg-up" />
-            Now streaming from Equinix LD4 &amp; LD5
-          </p>
-          <h1 className="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight text-offwhite sm:text-5xl lg:text-[3.6rem]">
-            The world&apos;s financial centres, <span className="text-teal-bright">one liquidity source.</span>
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const syncPreference = () => {
+      setAllowMotion(!query.matches);
+      if (query.matches) setVideoReady(false);
+    };
+
+    syncPreference();
+    query.addEventListener("change", syncPreference);
+
+    return () => query.removeEventListener("change", syncPreference);
+  }, []);
+
+  const handleVideoError = () => {
+    setVideoReady(false);
+    setVideoFormat((current) => (current === "webm" ? "mp4" : null));
+  };
+
+  const handleVideoPlaying = (event: SyntheticEvent<HTMLVideoElement>) => {
+    const video = event.currentTarget;
+
+    // Keep the image until the first real video frame is displayed.
+    if (typeof video.requestVideoFrameCallback === "function") {
+      video.requestVideoFrameCallback(() => {
+        if (video.isConnected && !video.paused && !video.ended) {
+          setVideoReady(true);
+        }
+      });
+    } else {
+      setVideoReady(true);
+    }
+  };
+
+  return (
+    <section className={styles.hero} id="home" aria-labelledby="hero-title">
+      <div className={styles.media} aria-hidden="true">
+        {/* Placeholder disappears when videoReady becomes true. */}
+        <div
+          className={`${styles.poster} ${
+            videoReady ? styles.posterHidden : ""
+          }`}
+          style={{
+            backgroundImage: `url("${HERO_MEDIA.poster}")`,
+          }}
+        />
+
+        {allowMotion && videoFormat && (
+          <video
+            key={videoFormat}
+            className={`${styles.video} ${videoReady ? styles.videoReady : ""}`}
+            src={HERO_MEDIA[videoFormat]}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            disablePictureInPicture
+            disableRemotePlayback
+            onPlaying={handleVideoPlaying}
+            onWaiting={() => setVideoReady(false)}
+            onError={handleVideoError}
+          />
+        )}
+      </div>
+
+      <div className={styles.scrim} aria-hidden="true" />
+
+      <div className={styles.container}>
+        <div className={styles.copy}>
+          <h1 className={styles.title} id="hero-title">
+            The world&apos;s financial centres,{" "}
+            <span>one liquidity source.</span>
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-mist-body">
-            One prime relationship for aggregated FX liquidity, FIX connectivity at Equinix LD4/LD5 and real-time risk
-            control, built for brokers, funds and exchanges.
+
+          <p className={styles.description}>
+            One prime relationship for aggregated FX liquidity, FIX connectivity
+            at Equinix LD4/LD5 and real-time risk control, built for brokers,
+            funds and exchanges.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#solutions" className="btn-primary">Explore solutions <span aria-hidden>→</span></a>
-            <a href="#contact" className="btn-ghost">Get in touch</a>
+
+          <div className={styles.actions}>
+            <a className={styles.primaryButton} href="#solutions">
+              Explore solutions <span aria-hidden="true">→</span>
+            </a>
+
+            <a className={styles.secondaryButton} href="#contact">
+              Get in touch
+            </a>
           </div>
-          <dl className="mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-navy-4/60 pt-6">
-            {[
-              ["<1ms", "LD4 ↔ LD5 cross-connect"],
-              ["40+", "Tier-1 & non-bank LPs"],
-              ["24/5", "Risk desk coverage"],
-            ].map(([v, l]) => (
-              <div key={l}>
-                <dt className="font-mono text-xl font-semibold text-offwhite">{v}</dt>
-                <dd className="mt-1 text-xs leading-snug text-mist-muted">{l}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
-        <GlassArchitecture />
       </div>
     </section>
   );

@@ -1,0 +1,593 @@
+/* JKV Prime — Infrastructure
+   Original site's font is deliberately inherited (no new font imports).
+   Palette: Deep Section #071F1B · Showcase #103A32 · Soft Mint #E6F6F2
+            Text Light #F4FAF7 · Emerald #16B8A6 · Mint #65E0BA. */
+
+.section {
+  --deep: #071f1b;
+  --showcase: #103a32;
+  --soft-mint: #e6f6f2;
+  --text-light: #f4faf7;
+  --emerald: #16b8a6;
+  --mint: #65e0ba;
+  --pad: clamp(20px, 4vw, 68px);
+  position: relative;
+  isolation: isolate;
+  background: var(--text-light);
+  color: var(--deep);
+  font-family: inherit;
+}
+
+.section *,
+.section *::before,
+.section *::after {
+  box-sizing: border-box;
+}
+
+/* ========================================================================== */
+/* ACT I — EXPANDING MARKET PANEL, inspired by the supplied showcase reference */
+/* ========================================================================== */
+
+.showcase {
+  position: relative;
+  height: 230svh;
+  background: var(--text-light);
+}
+
+.showcaseSticky {
+  position: sticky;
+  inset-block-start: 0;
+  height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.showcasePanel {
+  --panel-width: 48vw;
+  --panel-height: 54svh;
+  --panel-radius: 32px;
+  --text-scale: 0.6;
+  position: relative;
+  isolation: isolate;
+  width: var(--panel-width);
+  height: var(--panel-height);
+  border-radius: var(--panel-radius);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 65% 70% at 52% 42%, #18584a 0%, transparent 95%),
+    linear-gradient(135deg, #103a32 5%, #071f1b 100%);
+  color: var(--text-light);
+  will-change: width, height, border-radius;
+}
+
+.panelGrid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(182, 239, 217, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(182, 239, 217, 0.055) 1px, transparent 1px);
+  background-size: 65px 65px;
+  mask-image: radial-gradient(
+    ellipse 66% 82% at center,
+    #000 15%,
+    transparent 100%
+  );
+}
+
+.panelGlow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 41% 56% at center,
+      rgba(7, 31, 27, 0.72) 10%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(7, 31, 27, 0.14),
+      transparent 35%,
+      rgba(7, 31, 27, 0.2)
+    );
+}
+
+.marketField {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.marketBubble {
+  position: absolute;
+  inset-inline-start: var(--x);
+  inset-block-start: var(--y);
+  width: var(--size);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate3d(var(--float-x, 0px), var(--float-y, 0px), 0);
+  will-change: transform;
+  user-select: none;
+}
+
+.marketBubbleInner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2px, 0.4vw, 8px);
+  border-radius: inherit;
+  border: 1px solid rgba(246, 255, 251, 0.6);
+  color: #073c31;
+  background:
+    radial-gradient(
+      circle at 28% 18%,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.4) 15%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 35% 31%,
+      #f1fff9 0%,
+      #b6f1dd 40%,
+      #64bb9c 72%,
+      #185646 100%
+    );
+  box-shadow:
+    inset 8px 12px 18px rgba(255, 255, 255, 0.4),
+    inset -17px -20px 26px rgba(0, 46, 39, 0.28),
+    0 25px 66px rgba(0, 13, 10, 0.33);
+  animation: buoy 8s ease-in-out var(--delay) infinite alternate;
+}
+
+.fxBubble .marketBubbleInner {
+  background:
+    radial-gradient(
+      circle at 30% 17%,
+      rgba(255, 255, 255, 0.95),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 37% 27%,
+      #f7fffc 0%,
+      #e6f6f2 34%,
+      #b6dacd 65%,
+      #6eaa98 100%
+    );
+}
+
+.stockMark {
+  width: 30%;
+  max-width: 60px;
+  color: #0b5144;
+  line-height: 0;
+}
+
+.stockMark svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.bubbleLabel {
+  font-size: clamp(11px, 1.2vw, 18px);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.bubbleSubtitle {
+  font-size: clamp(6px, 0.65vw, 9px);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  opacity: 0.65;
+}
+
+.fxBubble .bubbleLabel {
+  font-size: clamp(10px, 1.2vw, 18px);
+}
+
+.showcaseCopy {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  z-index: 3;
+  width: min(88vw, 1000px);
+  padding: 0 var(--pad);
+  text-align: center;
+  transform: translate(-50%, -50%) scale(var(--text-scale));
+  transform-origin: center;
+  will-change: transform;
+}
+
+.showcaseEyebrow,
+.eyebrow {
+  display: block;
+  color: var(--emerald);
+  font-size: clamp(10px, 0.9vw, 13px);
+  font-weight: 800;
+  letter-spacing: 0.17em;
+  line-height: 1.5;
+}
+
+.showcaseEyebrow {
+  color: var(--mint);
+  margin-bottom: clamp(14px, 2vw, 30px);
+}
+
+.showcaseCopy h2 {
+  margin: 0;
+  font-size: clamp(38px, 5.3vw, 84px);
+  line-height: 0.99;
+  font-weight: 750;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.showcaseCopy p {
+  max-width: 61ch;
+  margin: clamp(18px, 2vw, 28px) auto 0;
+  color: rgba(244, 250, 247, 0.82);
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.showcasePills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: clamp(18px, 2.4vw, 32px);
+}
+
+.showcasePills span {
+  padding: 10px 16px;
+  border: 1px solid rgba(208, 254, 237, 0.25);
+  border-radius: 999px;
+  background: rgba(230, 246, 242, 0.1);
+  backdrop-filter: blur(8px);
+  font-size: clamp(12px, 1vw, 14px);
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.showcaseFoot {
+  position: absolute;
+  inset-inline: var(--pad);
+  inset-block-end: clamp(20px, 3.1vh, 40px);
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(244, 250, 247, 0.6);
+}
+
+/* ========================================================================== */
+/* ACT II — STICKY HEADING + SCROLL PROGRESS STEPS                            */
+/* ========================================================================== */
+
+.process {
+  background: var(--text-light);
+  padding: clamp(100px, 14vh, 180px) var(--pad) clamp(92px, 12vh, 140px);
+}
+
+.processGrid {
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.1fr);
+  gap: clamp(48px, 8vw, 145px);
+  align-items: start;
+}
+
+.processIntro {
+  position: sticky;
+  top: 126px;
+  align-self: start;
+}
+
+.processIntro h3 {
+  max-width: 11ch;
+  margin: 22px 0 0;
+  font-size: clamp(38px, 4.3vw, 72px);
+  font-weight: 750;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.processIntro > p {
+  max-width: 39ch;
+  margin: 26px 0 0;
+  color: #586e66;
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.7;
+}
+
+.introPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+  padding: 11px 16px;
+  border: 1px solid rgba(16, 58, 50, 0.18);
+  border-radius: 999px;
+  background: var(--soft-mint);
+  color: var(--showcase);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.introPillDot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--emerald);
+}
+
+.steps {
+  --rail-progress: 0;
+  position: relative;
+  list-style: none;
+  padding: 0 0 0 clamp(32px, 4vw, 64px);
+  margin: 0;
+}
+
+.steps::before,
+.steps::after {
+  content: "";
+  position: absolute;
+  inset-block: 18px 24px;
+  inset-inline-start: 0;
+  width: 2px;
+  border-radius: 999px;
+}
+
+.steps::before {
+  background: #d1ded9;
+}
+.steps::after {
+  background: linear-gradient(to bottom, var(--mint), var(--emerald));
+  transform-origin: top;
+  transform: scaleY(var(--rail-progress));
+  will-change: transform;
+}
+
+.step {
+  position: relative;
+  padding: 12px 0 clamp(65px, 11vh, 130px);
+  border-bottom: 1px solid rgba(16, 58, 50, 0.12);
+  transition:
+    opacity 0.65s ease,
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.step + .step {
+  padding-top: clamp(30px, 4vw, 54px);
+}
+.step:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.step[data-revealed="false"] {
+  opacity: 0.42;
+  transform: translateY(30px);
+}
+.step[data-revealed="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.step::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(-1 * clamp(32px, 4vw, 64px) - 6px);
+  inset-block-start: 40px;
+  width: 14px;
+  height: 14px;
+  border: 3px solid var(--text-light);
+  border-radius: 50%;
+  background: #b6cfc4;
+  box-shadow: 0 0 0 1px #cdded6;
+  transition:
+    background 0.3s,
+    box-shadow 0.3s;
+}
+
+.step[data-current="true"]::before {
+  background: var(--emerald);
+  box-shadow: 0 0 0 6px rgba(22, 184, 166, 0.12);
+}
+
+.stepNumber {
+  display: block;
+  font-size: clamp(70px, 8vw, 130px);
+  font-weight: 300;
+  letter-spacing: -0.075em;
+  line-height: 0.86;
+  color: #b0d7cb;
+  transition: color 0.3s ease;
+}
+
+.step[data-current="true"] .stepNumber {
+  color: var(--emerald);
+}
+
+.stepText h4 {
+  max-width: 16ch;
+  margin: 22px 0 0;
+  font-size: clamp(26px, 2.6vw, 43px);
+  line-height: 1.12;
+  letter-spacing: -0.045em;
+  font-weight: 750;
+  color: var(--deep);
+}
+
+.stepText p {
+  max-width: 49ch;
+  margin: 16px 0 0;
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.72;
+  color: #586e66;
+}
+
+/* ========================================================================== */
+/* RESPONSIVENESS                                                            */
+/* ========================================================================== */
+
+@media (max-width: 1050px) {
+  .processGrid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(32px, 5vw, 70px);
+  }
+}
+
+@media (max-width: 760px) {
+  .showcasePanel {
+    --panel-width: 88vw;
+    --panel-height: 60svh;
+    --text-scale: 0.84;
+  }
+  .showcaseCopy {
+    width: 95vw;
+    padding: 0 18px;
+  }
+  .showcaseCopy h2 {
+    font-size: clamp(31px, 7.8vw, 56px);
+  }
+  .showcaseCopy p {
+    max-width: 39ch;
+    font-size: clamp(14px, 3.2vw, 16px);
+  }
+  .showcasePills span {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+  .showcaseFoot {
+    font-size: 8px;
+    letter-spacing: 0.06em;
+  }
+  .marketBubble {
+    opacity: 0.68;
+  }
+  .marketBubble:nth-child(2),
+  .marketBubble:nth-child(6) {
+    opacity: 0.45;
+  }
+  .bubbleLabel {
+    font-size: 12px;
+  }
+  .bubbleSubtitle {
+    font-size: 7px;
+  }
+  .processGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 62px;
+  }
+  .processIntro {
+    position: relative;
+    top: auto;
+  }
+  .processIntro h3 {
+    max-width: 14ch;
+  }
+  .steps {
+    padding-left: 44px;
+  }
+  .step::before {
+    inset-inline-start: -50px;
+  }
+}
+
+@media (max-width: 460px) {
+  .showcaseCopy {
+    width: 97vw;
+  }
+  .showcaseCopy h2 {
+    font-size: clamp(30px, 7.4vw, 40px);
+  }
+  .showcaseCopy p {
+    line-height: 1.5;
+  }
+  .showcaseEyebrow {
+    font-size: 9px;
+  }
+  .marketBubble:nth-child(5) {
+    display: none;
+  }
+  .processIntro h3 {
+    font-size: clamp(35px, 9vw, 50px);
+  }
+  .stepNumber {
+    font-size: 72px;
+  }
+  .stepText h4 {
+    font-size: clamp(25px, 7vw, 34px);
+  }
+}
+
+/* Limited landscape height: free space for heading and badges. */
+@media (max-height: 620px) and (min-width: 761px) {
+  .showcaseCopy h2 {
+    font-size: clamp(32px, 4.1vw, 62px);
+  }
+  .showcaseCopy p {
+    margin-top: 12px;
+    font-size: 14px;
+  }
+  .showcasePills {
+    margin-top: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase {
+    height: 100svh;
+  }
+  .showcasePanel {
+    width: 100vw !important;
+    height: 100svh !important;
+    border-radius: 0 !important;
+    --text-scale: 1 !important;
+    will-change: auto;
+  }
+  .marketBubble,
+  .showcaseCopy,
+  .steps::after {
+    will-change: auto;
+  }
+  .marketBubbleInner {
+    animation: none !important;
+  }
+  .step {
+    transition: none;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@keyframes buoy {
+  from {
+    transform: translate3d(0, -8px, 0) rotate(-3deg);
+  }
+  to {
+    transform: translate3d(0, 12px, 0) rotate(3deg);
+  }
+}
+

@@ -14,55 +14,209 @@ const LINKS = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    let lastScrollY = Math.max(window.scrollY, 0);
+    let ticking = false;
+    let frameId = 0;
+
+    const updateNavbar = () => {
+      const currentScrollY = Math.max(window.scrollY, 0);
+      const difference = currentScrollY - lastScrollY;
+
+      setScrolled(currentScrollY > 12);
+
+      // Always show the navbar near the top.
+      if (currentScrollY <= 80) {
+        setHidden(false);
+        lastScrollY = currentScrollY;
+      }
+
+      // Keep the navbar visible while mobile menu is open.
+      else if (open) {
+        setHidden(false);
+        lastScrollY = currentScrollY;
+      }
+
+      // Hide while scrolling down.
+      else if (difference > 6) {
+        setHidden(true);
+        lastScrollY = currentScrollY;
+      }
+
+      // Show while scrolling up.
+      else if (difference < -6) {
+        setHidden(false);
+        lastScrollY = currentScrollY;
+      }
+
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        frameId = window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    };
+
+    updateNavbar();
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [open]);
+
+  const shouldHide = hidden && !open;
+
+  const contactButton =
+    "inline-flex items-center justify-center rounded-full " +
+    "bg-[#65E0BA] px-5 py-2.5 text-sm font-semibold " +
+    "text-[#071F1B] transition-colors duration-200 " +
+    "hover:bg-[#16B8A6] focus-visible:outline " +
+    "focus-visible:outline-2 focus-visible:outline-offset-4 " +
+    "focus-visible:outline-[#65E0BA]";
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition ${scrolled || open ? "border-b border-navy-4/60 bg-navy/85 backdrop-blur-md" : "bg-transparent"}`}
+      className={`
+        fixed inset-x-0 top-0 z-50
+        border-b border-white/10
+        bg-[#103A32]
+        text-[#F4FAF7]
+        transition-[transform,box-shadow,background-color]
+        duration-300
+        ease-[cubic-bezier(0.22,1,0.36,1)]
+        motion-reduce:transition-none
+        ${shouldHide ? "-translate-y-full" : "translate-y-0"}
+        ${
+          scrolled || open
+            ? "shadow-[0_12px_35px_rgba(0,0,0,0.22)]"
+            : "shadow-none"
+        }
+      `}
     >
       <nav className="container-site flex h-16 items-center justify-between md:h-20">
-        <Link href="/" aria-label="JKV Prime home" onClick={() => setOpen(false)}>
+        {/* Logo */}
+        <Link
+          href="/"
+          aria-label="JKV Prime home"
+          onClick={() => setOpen(false)}
+          className="relative z-10"
+        >
           <Logo className="h-7 w-auto md:h-8" />
         </Link>
-        <ul className="hidden items-center gap-8 md:flex">
-          {LINKS.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} className="text-sm font-medium text-mist-body transition hover:text-offwhite">{l.label}</a>
+
+        {/* Desktop Navigation */}
+        <ul className="hidden items-center gap-8 lg:flex">
+          {LINKS.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="
+                  relative text-sm font-medium
+                  text-[#F4FAF7]/85
+                  transition-colors duration-200
+                  hover:text-[#65E0BA]
+                "
+              >
+                {link.label}
+              </a>
             </li>
           ))}
         </ul>
-        <div className="hidden md:block">
-          <a href="#contact" className="btn-primary !py-2.5">Get in touch</a>
+
+        {/* Desktop CTA */}
+        <div className="hidden lg:block">
+          <a href="#contact" className={contactButton}>
+            Get in touch
+          </a>
         </div>
+
+        {/* Mobile Toggle */}
         <button
-          className="rounded-lg p-2 text-offwhite md:hidden"
+          type="button"
+          className="
+            rounded-lg p-2
+            text-[#F4FAF7]
+            transition-colors duration-200
+            hover:bg-white/10
+            lg:hidden
+          "
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
+          aria-controls="mobile-menu"
+          onClick={() => {
+            setOpen((previous) => !previous);
+            setHidden(false);
+          }}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            {open ? (
+              <path d="M6 6l12 12M18 6L6 18" />
+            ) : (
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            )}
           </svg>
         </button>
       </nav>
+
+      {/* Mobile Navigation */}
       {open && (
-        <div className="container-site pb-6 md:hidden">
-          <ul className="flex flex-col gap-1">
-            {LINKS.map((l) => (
-              <li key={l.href}>
-                <a href={l.href} onClick={() => setOpen(false)} className="block rounded-lg px-2 py-3 text-base text-mist-body hover:bg-navy-2 hover:text-offwhite">
-                  {l.label}
+        <div
+          id="mobile-menu"
+          className="
+            container-site
+            border-t border-white/10
+            bg-[#103A32]
+            pb-6
+            lg:hidden
+          "
+        >
+          <ul className="flex flex-col gap-1 pt-3">
+            {LINKS.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="
+                    block rounded-lg px-3 py-3
+                    text-base font-medium
+                    text-[#F4FAF7]/85
+                    transition-colors duration-200
+                    hover:bg-white/10
+                    hover:text-[#65E0BA]
+                  "
+                >
+                  {link.label}
                 </a>
               </li>
             ))}
           </ul>
-          <a href="#contact" onClick={() => setOpen(false)} className="btn-primary mt-4 w-full">Get in touch</a>
+
+          <a
+            href="#contact"
+            onClick={() => setOpen(false)}
+            className={`${contactButton} mt-4 w-full`}
+          >
+            Get in touch
+          </a>
         </div>
       )}
     </header>
