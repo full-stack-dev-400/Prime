@@ -19,3 +19,7 @@
 # Local tooling
 .vercel/
 .DS_Store
+# Playwright MCP browser artifacts
+.playwright-mcp/
+
+/design-references/
