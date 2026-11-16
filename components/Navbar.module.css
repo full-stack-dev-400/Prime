@@ -1,0 +1,486 @@
+/* ==========================================
+   JKV PRIME — HEADER / NAVIGATION
+   Official Brand Design System
+   ========================================== */
+
+.header {
+  --deep: #071f1b;
+  --showcase: #103a32;
+  --emerald: #16b8a6;
+  --mint: #65e0ba;
+  --text-light: #f4faf7;
+  --white: #ffffff;
+
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1000;
+
+  width: 100%;
+
+  background: var(--showcase);
+  color: var(--text-light);
+
+  border-bottom: 1px solid rgba(244, 250, 247, 0.12);
+
+  font-family: inherit;
+
+  transform: translateY(0);
+
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.header *,
+.header *::before,
+.header *::after {
+  box-sizing: border-box;
+}
+
+/* SCROLLED HEADER */
+
+.scrolled {
+  background: rgba(16, 58, 50, 0.98);
+
+  box-shadow: 0 12px 35px rgba(7, 31, 27, 0.2);
+
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+/* HIDE ON SCROLL DOWN */
+
+.hidden {
+  transform: translateY(-100%);
+}
+
+/* ==========================================
+   NAVIGATION CONTAINER
+   ========================================== */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 22px;
+
+  width: min(1440px, calc(100% - clamp(32px, 5vw, 96px)));
+
+  height: 80px;
+  margin-inline: auto;
+}
+
+/* ==========================================
+   LOGO
+   ========================================== */
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+
+  flex-shrink: 0;
+
+  text-decoration: none;
+
+  position: relative;
+  z-index: 2;
+}
+
+.logo {
+  display: block;
+  width: 140px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.logoLink:focus-visible {
+  outline: 3px solid var(--emerald);
+  outline-offset: 6px;
+  border-radius: 4px;
+}
+
+/* ==========================================
+   DESKTOP NAVIGATION
+   ========================================== */
+
+.desktopLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 1;
+
+  gap: clamp(12px, 1.25vw, 22px);
+
+  min-width: 0;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.desktopLinks li {
+  margin: 0;
+  padding: 0;
+}
+
+/* NAV LINKS */
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+
+  position: relative;
+
+  padding: 11px 0;
+
+  color: rgba(244, 250, 247, 0.88);
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+
+  white-space: nowrap;
+  text-decoration: none;
+
+  transition: color 0.25s ease;
+}
+
+.navLink::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 5px;
+
+  height: 2px;
+
+  border-radius: 99px;
+  background: var(--emerald);
+
+  transition: right 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navLink:hover {
+  color: var(--mint);
+}
+
+.navLink:hover::after {
+  right: 0;
+}
+
+.navLink:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+
+/* ==========================================
+   CONTACT CTA
+   ========================================== */
+
+.desktopAction {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.contactButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  min-height: 45px;
+
+  padding: 12px 18px;
+
+  border: 1px solid var(--emerald);
+  border-radius: 999px;
+
+  background: var(--emerald);
+  color: var(--white);
+
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.2;
+
+  white-space: nowrap;
+  text-decoration: none;
+
+  transition:
+    background-color 0.28s ease,
+    color 0.28s ease,
+    border-color 0.28s ease,
+    transform 0.28s ease;
+}
+
+.contactButton:hover {
+  background: var(--white);
+  color: var(--deep);
+
+  border-color: var(--emerald);
+
+  transform: translateY(-2px);
+}
+
+.contactButton svg {
+  display: block;
+  width: 17px;
+  height: 17px;
+
+  flex-shrink: 0;
+
+  transition: transform 0.28s ease;
+}
+
+.contactButton:hover svg {
+  transform: translateX(3px);
+}
+
+.contactButton:focus-visible {
+  outline: 3px solid var(--mint);
+  outline-offset: 4px;
+}
+
+/* ==========================================
+   MOBILE TOGGLE
+   ========================================== */
+
+.menuToggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  padding: 9px;
+
+  border: 1px solid rgba(244, 250, 247, 0.2);
+  border-radius: 12px;
+
+  background: transparent;
+  color: var(--text-light);
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.menuToggle:hover {
+  background: rgba(244, 250, 247, 0.1);
+  border-color: rgba(244, 250, 247, 0.35);
+}
+
+.menuToggle:focus-visible {
+  outline: 3px solid var(--mint);
+  outline-offset: 3px;
+}
+
+.menuToggle svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+/* ==========================================
+   MOBILE MENU PANEL
+   ========================================== */
+
+.mobileMenu {
+  display: none;
+
+  background: var(--showcase);
+
+  border-top: 1px solid rgba(244, 250, 247, 0.12);
+
+  box-shadow: 0 22px 45px rgba(7, 31, 27, 0.22);
+}
+
+.mobileLinks {
+  margin: 0;
+  padding: 12px 0 0;
+
+  list-style: none;
+}
+
+.mobileLinks li {
+  margin: 0;
+  padding: 0;
+}
+
+.mobileLink {
+  display: grid;
+
+  grid-template-columns:
+    34px
+    minmax(0, 1fr)
+    24px;
+
+  align-items: center;
+
+  gap: 12px;
+
+  min-height: 52px;
+  padding: 11px 12px;
+
+  border-bottom: 1px solid rgba(244, 250, 247, 0.1);
+
+  color: var(--text-light);
+  text-decoration: none;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  border-radius: 8px;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.mobileLink:hover {
+  background: rgba(101, 224, 186, 0.08);
+  color: var(--mint);
+}
+
+.mobileLink:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
+}
+
+.mobileIndex {
+  color: var(--emerald);
+
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+}
+
+.mobileArrow {
+  text-align: right;
+
+  color: var(--mint);
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.mobileAction {
+  padding: 20px 0 24px;
+}
+
+.mobileAction .contactButton {
+  width: 100%;
+  justify-content: space-between;
+  min-height: 52px;
+  padding-inline: 20px;
+}
+
+/* ==========================================
+   RESPONSIVE MENU BREAKPOINT
+   ========================================== */
+
+@media (max-width: 1349px) {
+  .nav {
+    height: 72px;
+  }
+
+  .desktopLinks,
+  .desktopAction {
+    display: none;
+  }
+
+  .menuToggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  .mobileMenu {
+    display: block;
+
+    max-height: calc(100dvh - 72px);
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    padding: 0 max(16px, calc((100% - 1100px) / 2));
+  }
+}
+
+/* ==========================================
+   TABLET
+   ========================================== */
+
+@media (max-width: 760px) {
+  .nav {
+    width: calc(100% - 32px);
+    height: 68px;
+  }
+
+  .logo {
+    height: 30px;
+  }
+
+  .mobileMenu {
+    max-height: calc(100dvh - 68px);
+    padding-inline: 16px;
+  }
+
+  .mobileLink {
+    min-height: 50px;
+    font-size: 14px;
+  }
+}
+
+/* ==========================================
+   SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 420px) {
+  .nav {
+    height: 64px;
+  }
+
+  .logo {
+    height: 28px;
+  }
+
+  .mobileMenu {
+    max-height: calc(100dvh - 64px);
+  }
+
+  .mobileLink {
+    min-height: 48px;
+    padding: 10px 8px;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .header *,
+  .header *::before,
+  .header *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .contactButton:hover,
+  .contactButton:hover svg,
+  .navLink:hover,
+  .mobileLink:hover {
+    transform: none;
+  }
+}

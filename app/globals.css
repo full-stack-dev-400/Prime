@@ -2,58 +2,470 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: dark; }
-html { scroll-behavior: smooth; }
-body { background: #0B1630; color: #F4F7FA; -webkit-font-smoothing: antialiased; }
+/* ============================================
+   JKV PRIME — GLOBAL DESIGN SYSTEM
+   ============================================ */
+
+:root {
+  color-scheme: dark;
+
+  /* Official JKV Prime backgrounds */
+  --prime-bg: #071f1b;
+  --prime-bg-secondary: #103a32;
+  --prime-bg-card: #103a32;
+  --prime-bg-elevated: #16483e;
+
+  /* Official brand accents */
+  --prime-accent: #65e0ba;
+  --prime-accent-hover: #84efcb;
+  --prime-accent-deep: #16b8a6;
+
+  /* Typography */
+  --prime-heading: #f4faf7;
+  --prime-body: #e6f6f2;
+  --prime-muted: #a3b6aa;
+  --prime-font: inherit;
+
+  /* Buttons */
+  --prime-button-bg: #65e0ba;
+  --prime-button-hover: #84efcb;
+  --prime-button-text: #071f1b;
+
+  /* Borders */
+  --prime-border: rgba(230, 246, 242, 0.16);
+  --prime-border-hover: rgba(101, 224, 186, 0.65);
+
+  /* Layout */
+  --prime-container: 1240px;
+  --prime-radius-button: 999px;
+  --prime-transition: 200ms ease;
+
+  /* Glass effects */
+  --prime-glass: rgba(255, 255, 255, 0.06);
+  --prime-glass-hover: rgba(255, 255, 255, 0.12);
+}
+
+/* ============================================
+   GLOBAL BASE STYLES
+   ============================================ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+  }
+
+  body {
+    background: var(--prime-bg);
+    color: var(--prime-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: var(--prime-accent);
+    color: var(--prime-button-text);
+  }
+
+  :focus-visible {
+    outline-color: var(--prime-accent);
+  }
+}
+
+/* ============================================
+   SHARED COMPONENT STYLES
+   ============================================ */
 
 @layer components {
-  .container-site { @apply mx-auto w-full max-w-site px-5 md:px-8; }
+  /* Main content container */
+
+  .container-site {
+    @apply mx-auto w-full max-w-site px-5 md:px-8;
+  }
+
+  /* ------------------------------------------
+     PRIMARY BUTTON
+     ------------------------------------------ */
+
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-teal px-6 py-3 text-sm font-semibold text-navy
-      transition hover:bg-teal-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-bright focus-visible:ring-offset-2 focus-visible:ring-offset-navy;
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    padding: 0.75rem 1.5rem;
+
+    border: 1px solid transparent;
+    border-radius: var(--prime-radius-button);
+
+    background: var(--prime-button-bg);
+    color: var(--prime-button-text);
+
+    font-size: 0.875rem;
+    font-weight: 650;
+    line-height: 1.25rem;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+      transform var(--prime-transition),
+      background-color var(--prime-transition),
+      border-color var(--prime-transition),
+      color var(--prime-transition);
   }
+
+  .btn-primary:hover {
+    background: var(--prime-button-hover);
+    color: var(--prime-button-text);
+    transform: translateY(-2px);
+  }
+
+  .btn-primary:focus-visible {
+    outline: 3px solid var(--prime-accent-hover);
+    outline-offset: 4px;
+  }
+
+  .btn-primary:disabled,
+  .btn-primary[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ------------------------------------------
+     SECONDARY / GHOST BUTTON
+     ------------------------------------------ */
+
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-navy-4 px-6 py-3 text-sm font-semibold text-offwhite
-      transition hover:border-teal hover:text-teal-bright focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-bright;
+    display: inline-flex;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    padding: 0.75rem 1.5rem;
+
+    border: 1px solid rgba(237, 246, 240, 0.4);
+    border-radius: var(--prime-radius-button);
+
+    background: var(--prime-glass);
+    color: var(--prime-heading);
+
+    font-size: 0.875rem;
+    font-weight: 650;
+    line-height: 1.25rem;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+
+    transition:
+      transform var(--prime-transition),
+      background-color var(--prime-transition),
+      border-color var(--prime-transition),
+      color var(--prime-transition);
   }
-  .eyebrow { @apply font-mono text-xs uppercase tracking-[0.18em] text-teal-bright; }
-  .card { @apply rounded-2xl border border-navy-4/60 bg-navy-2 p-6 transition hover:border-teal/50; }
-  .field { @apply w-full rounded-xl border border-navy-4 bg-navy px-4 py-3 text-sm text-offwhite placeholder:text-mist-muted
-      focus:border-teal focus:outline-none focus:ring-1 focus:ring-teal; }
+
+  .btn-ghost:hover {
+    transform: translateY(-2px);
+    border-color: var(--prime-accent);
+    background: var(--prime-glass-hover);
+    color: var(--prime-heading);
+  }
+
+  .btn-ghost:focus-visible {
+    outline: 3px solid var(--prime-accent-hover);
+    outline-offset: 4px;
+  }
+
+  .btn-ghost:disabled,
+  .btn-ghost[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ------------------------------------------
+     EYEBROW / SECTION LABEL
+     ------------------------------------------ */
+
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.18em];
+
+    color: var(--prime-accent);
+  }
+
+  /* ------------------------------------------
+     CARD
+     ------------------------------------------ */
+
+  .card {
+    padding: 1.5rem;
+
+    border: 1px solid var(--prime-border);
+    border-radius: 1rem;
+
+    background: var(--prime-bg-card);
+    color: var(--prime-body);
+
+    transition:
+      background-color var(--prime-transition),
+      border-color var(--prime-transition),
+      transform var(--prime-transition),
+      box-shadow var(--prime-transition);
+  }
+
+  .card:hover {
+    border-color: var(--prime-border-hover);
+    background: var(--prime-bg-elevated);
+  }
+
+  /* ------------------------------------------
+     INPUT / FORM FIELD
+     ------------------------------------------ */
+
+  .field {
+    display: block;
+    width: 100%;
+
+    padding: 0.75rem 1rem;
+
+    border: 1px solid var(--prime-border);
+    border-radius: 0.75rem;
+
+    background: var(--prime-bg-secondary);
+    color: var(--prime-heading);
+
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+
+    transition:
+      border-color var(--prime-transition),
+      box-shadow var(--prime-transition),
+      background-color var(--prime-transition);
+  }
+
+  .field::placeholder {
+    color: var(--prime-muted);
+  }
+
+  .field:hover {
+    border-color: var(--prime-border-hover);
+  }
+
+  .field:focus {
+    border-color: var(--prime-accent);
+    outline: none;
+    box-shadow: 0 0 0 1px var(--prime-accent);
+  }
+
+  .field:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
-/* ---------- Hero glass architecture ---------- */
-.scene { perspective: 1600px; }
-.rig { transform-style: preserve-3d; transition: transform 0.25s ease-out; will-change: transform; }
-.slab {
-  position: absolute; transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(.2,.7,.2,1);
+/* ============================================
+   HERO GLASS ARCHITECTURE
+   Existing 3D effects preserved
+   ============================================ */
+
+.scene {
+  perspective: 1600px;
 }
+
+.rig {
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease-out;
+  will-change: transform;
+}
+
+.slab {
+  position: absolute;
+  transform-style: preserve-3d;
+
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Glass surface */
+
 .slab .face {
-  position: absolute; inset: 0; border-radius: 4px;
-  background: linear-gradient(160deg, rgba(63,227,198,0.20), rgba(28,53,102,0.25) 40%, rgba(22,184,166,0.10) 75%, rgba(170,140,255,0.16));
-  border: 1px solid rgba(160,240,230,0.45);
-  box-shadow: inset 0 0 40px rgba(63,227,198,0.10), 0 0 30px rgba(22,184,166,0.08);
+  position: absolute;
+  inset: 0;
+
+  border-radius: 4px;
+
+  background: linear-gradient(
+    160deg,
+    rgba(101, 224, 186, 0.2),
+    rgba(22, 35, 29, 0.25) 40%,
+    rgba(19, 138, 125, 0.1) 75%,
+    rgba(101, 224, 186, 0.16)
+  );
+
+  border: 1px solid rgba(101, 224, 186, 0.45);
+
+  box-shadow:
+    inset 0 0 40px rgba(101, 224, 186, 0.1),
+    0 0 30px rgba(19, 138, 125, 0.08);
+
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
 }
+
+/* Animated glass sheen */
+
 .slab .face::after {
-  content: ""; position: absolute; inset: 0; border-radius: inherit;
-  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.18) 45%, transparent 60%);
-  background-size: 250% 100%; animation: sheen 7s ease-in-out infinite;
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: inherit;
+
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.18) 45%,
+    transparent 60%
+  );
+
+  background-size: 250% 100%;
+
+  animation: sheen 7s ease-in-out infinite;
 }
-.slab .edge { position: absolute; background: rgba(63,227,198,0.22); border: 1px solid rgba(160,240,230,0.35); }
+
+/* Glass edge */
+
+.slab .edge {
+  position: absolute;
+
+  background: rgba(101, 224, 186, 0.22);
+
+  border: 1px solid rgba(101, 224, 186, 0.35);
+}
+
+/* Glass labels */
+
 .slab-label {
-  position: absolute; white-space: nowrap; font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em;
-  text-transform: uppercase; color: #3FE3C6; transform: translateZ(1px);
+  position: absolute;
+
+  white-space: nowrap;
+
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  color: var(--prime-accent);
+
+  transform: translateZ(1px);
 }
-@keyframes sheen { 0%,100% { background-position: 120% 0; } 50% { background-position: -20% 0; } }
-@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
-.live-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.marquee { animation: marquee 40s linear infinite; }
-.marquee:hover { animation-play-state: paused; }
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+/* Glass sheen */
+
+@keyframes sheen {
+  0%,
+  100% {
+    background-position: 120% 0;
+  }
+
+  50% {
+    background-position: -20% 0;
+  }
+}
+
+/* Live indicator */
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.live-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+/* Infinite marquee */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ============================================
+   REDUCED MOTION / ACCESSIBILITY
+   ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  .rig, .slab { transition: none !important; }
-  .slab .face::after, .marquee, .live-dot { animation: none !important; }
+  html {
+    scroll-behavior: auto;
+  }
+
+  .rig,
+  .slab {
+    transition: none !important;
+  }
+
+  .slab .face::after,
+  .marquee,
+  .live-dot {
+    animation: none !important;
+  }
+
+  .btn-primary,
+  .btn-ghost,
+  .card {
+    transition: none !important;
+  }
+
+  .btn-primary:hover,
+  .btn-ghost:hover {
+    transform: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+@media (max-width: 760px) {
+  html {
+    scroll-padding-top: 75px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

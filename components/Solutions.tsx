@@ -1,6 +1,10 @@
 "use client";
 
-import { useEffect, useRef, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import SolutionParticles from "./SolutionParticles";
 import styles from "./Solutions.module.css";
 
@@ -79,8 +83,13 @@ function SolutionCard({ item, index }: CardProps) {
       raf = 0;
       const rect = card.getBoundingClientRect();
       const progress = mobile.matches
-        ? clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height))
-        : clamp((window.innerWidth - rect.left) / (window.innerWidth + rect.width));
+        ? clamp(
+            (window.innerHeight - rect.top) /
+              (window.innerHeight + rect.height),
+          )
+        : clamp(
+            (window.innerWidth - rect.left) / (window.innerWidth + rect.width),
+          );
       const p = progress * 2 - 1;
       motionProgress.current.current = p;
 
@@ -93,8 +102,14 @@ function SolutionCard({ item, index }: CardProps) {
       // Reference Flagships GSAP: heading xPercent 16 -> -8,
       // oval xPercent -12 -> 6 as the card passes through the viewport.
       if (!mobile.matches && !reduce.matches) {
-        headingRef.current?.style.setProperty("--scroll-x", `${16 - progress * 24}%`);
-        mediaRef.current?.style.setProperty("--scroll-x", `${-12 + progress * 18}%`);
+        headingRef.current?.style.setProperty(
+          "--scroll-x",
+          `${16 - progress * 24}%`,
+        );
+        mediaRef.current?.style.setProperty(
+          "--scroll-x",
+          `${-12 + progress * 18}%`,
+        );
       } else {
         headingRef.current?.style.removeProperty("--scroll-x");
         mediaRef.current?.style.removeProperty("--scroll-x");
@@ -141,20 +156,35 @@ function SolutionCard({ item, index }: CardProps) {
     if (event.pointerType !== "mouse") return;
     const heading = event.currentTarget;
     const rect = heading.getBoundingClientRect();
-    const x = clamp((event.clientX - rect.left) / Math.max(1, rect.width), 0, 1);
-    const y = clamp((event.clientY - rect.top) / Math.max(1, rect.height), 0, 1);
+    const x = clamp(
+      (event.clientX - rect.left) / Math.max(1, rect.width),
+      0,
+      1,
+    );
+    const y = clamp(
+      (event.clientY - rect.top) / Math.max(1, rect.height),
+      0,
+      1,
+    );
     heading.style.setProperty("--hover-x", `${(x - 0.5) * 20}px`);
     heading.style.setProperty("--hover-y", `${(y - 0.5) * 12}px`);
   };
 
-  const onTitlePointerLeave = (event: ReactPointerEvent<HTMLHeadingElement>) => {
+  const onTitlePointerLeave = (
+    event: ReactPointerEvent<HTMLHeadingElement>,
+  ) => {
     event.currentTarget.style.setProperty("--hover-x", "0px");
     event.currentTarget.style.setProperty("--hover-y", "0px");
   };
 
   return (
     <article ref={cardRef} className={styles.card} data-solution-cursor>
-      <svg className={styles.orbits} viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <svg
+        className={styles.orbits}
+        viewBox="0 0 1000 600"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+      >
         <g ref={orbitRef}>
           <circle cx="240" cy="60" r="260" />
           <circle cx="540" cy="-150" r="380" />
@@ -181,8 +211,14 @@ function SolutionCard({ item, index }: CardProps) {
           onPointerLeave={onTitlePointerLeave}
           data-solution-heading
         >
-          {item.title}
+          <span className={styles.cardHeadingLine}>
+            {item.title.split(" ")[0]}
+          </span>
+          <span className={styles.cardHeadingLine}>
+            {item.title.split(" ").slice(1).join(" ")}
+          </span>
         </h3>
+
         <div className={styles.foot}>
           <p>{item.description}</p>
           <ul>
@@ -298,7 +334,8 @@ export default function Solutions() {
       targetX = event.clientX;
       targetY = event.clientY;
       const target = event.target;
-      const onCard = target instanceof Element && !!target.closest("[data-solution-cursor]");
+      const onCard =
+        target instanceof Element && !!target.closest("[data-solution-cursor]");
       cursor.classList.toggle(styles.cursorLarge, onCard);
     };
     const enter = (event: PointerEvent) => {
@@ -333,7 +370,7 @@ export default function Solutions() {
     >
       <div className={styles.head}>
         <div>
-          <span className={styles.kicker}>JKV GLOBAL / SOLUTIONS</span>
+          <span className={styles.kicker}>JKV PRIME / SOLUTIONS</span>
           <h2 id="solutions-heading">
             One prime relationship.
             <br />
@@ -342,9 +379,9 @@ export default function Solutions() {
         </div>
         <div className={styles.headRight}>
           <p>
-            Take the full stack or pick the modules you need. Each solution plugs
-            into the same liquidity, credit and risk framework, so you can add
-            more as your flow grows.
+            Take the full stack or pick the modules you need. Each solution
+            plugs into the same liquidity, credit and risk framework, so you can
+            add more as your flow grows.
           </p>
           <a href="#contact" className={styles.cta}>
             Design your setup <span aria-hidden="true">↗</span>

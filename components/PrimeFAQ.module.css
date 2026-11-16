@@ -1,0 +1,454 @@
+/* ==========================================
+   JKV PRIME — FAQ
+   Official Brand Design System
+   ========================================== */
+
+.faq {
+  --deep: #071f1b;
+  --showcase: #103a32;
+  --emerald: #16b8a6;
+  --mint: #65e0ba;
+  --soft-mint: #e6f6f2;
+  --text-light: #f4faf7;
+  --white: #ffffff;
+  --muted: #42655e;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  background: var(--text-light);
+  color: var(--deep);
+
+  padding: clamp(60px, 6vw, 90px) 0;
+
+  font-family: inherit;
+}
+
+.faq *,
+.faq *::before,
+.faq *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   CONTAINER
+   ========================================== */
+
+.wrap {
+  width: min(1440px, calc(100% - clamp(32px, 7vw, 112px)));
+
+  margin-inline: auto;
+}
+
+/* ==========================================
+   LAYOUT
+   ========================================== */
+
+.faqLayout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 0.85fr)
+    minmax(0, 1.15fr);
+
+  gap: clamp(35px, 7vw, 110px);
+
+  align-items: start;
+}
+
+.faqIntro {
+  position: sticky;
+  top: 100px;
+}
+
+/* ==========================================
+   SECTION LABEL
+   No decorative dash
+   ========================================== */
+
+.eyebrow {
+  display: block;
+
+  margin: 0 0 22px;
+
+  color: var(--emerald);
+
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+  line-height: 1.5;
+
+  text-transform: uppercase;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: none;
+  display: none;
+}
+
+/* ==========================================
+   MAIN HEADING
+   ========================================== */
+
+.faqIntro h2 {
+  margin: 0 0 24px;
+
+  color: var(--deep);
+
+  font-weight: 700;
+  font-size: clamp(42px, 5.2vw, 78px);
+
+  letter-spacing: -0.055em;
+  line-height: 1.04;
+
+  max-width: 12ch;
+
+  text-wrap: balance;
+}
+
+.faqIntro h2 em {
+  font-style: normal;
+  color: var(--emerald);
+}
+
+/* ==========================================
+   DESCRIPTION
+   ========================================== */
+
+.faqIntro p {
+  max-width: 38ch;
+
+  margin: 0 0 26px;
+
+  color: var(--muted);
+
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 400;
+
+  line-height: 1.7;
+}
+
+/* ==========================================
+   CONTACT TEXT LINK
+   ========================================== */
+
+.textLink {
+  display: inline-flex;
+
+  align-items: center;
+  gap: 12px;
+
+  color: var(--deep);
+
+  font-size: 14px;
+  font-weight: 750;
+
+  text-decoration: none;
+
+  border-bottom: 1px solid var(--emerald);
+  padding-bottom: 8px;
+
+  transition:
+    color 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.textLink:hover {
+  color: var(--emerald);
+  border-color: var(--emerald);
+}
+
+.textLink svg {
+  width: 18px;
+  height: 18px;
+
+  transition: transform 0.28s ease;
+}
+
+.textLink:hover svg {
+  transform: translateX(5px);
+}
+
+.textLink:focus-visible {
+  outline: 3px solid var(--emerald);
+  outline-offset: 4px;
+}
+
+/* ==========================================
+   ACCORDION
+   ========================================== */
+
+.accordion {
+  border-top: 1px solid rgba(7, 31, 27, 0.16);
+}
+
+.faqItem {
+  border-bottom: 1px solid rgba(7, 31, 27, 0.16);
+
+  transition: border-color 0.3s ease;
+}
+
+.faqItemActive {
+  border-bottom-color: rgba(22, 184, 166, 0.35);
+}
+
+.faqItem h3 {
+  margin: 0;
+  font-weight: inherit;
+}
+
+/* ==========================================
+   QUESTION BUTTON
+   ========================================== */
+
+.question {
+  display: grid;
+
+  grid-template-columns:
+    32px
+    minmax(0, 1fr)
+    42px;
+
+  align-items: center;
+
+  width: 100%;
+
+  gap: clamp(12px, 1.6vw, 23px);
+
+  padding: 27px 0;
+
+  border: 0;
+
+  background: transparent;
+  color: var(--deep);
+
+  text-align: left;
+  font: inherit;
+
+  cursor: pointer;
+
+  transition: color 0.28s ease;
+}
+
+.question:hover .questionText {
+  color: var(--showcase);
+}
+
+.question:focus-visible {
+  outline: 3px solid var(--emerald);
+  outline-offset: 4px;
+}
+
+/* ==========================================
+   FAQ NUMBER
+   ========================================== */
+
+.faqNumber {
+  color: var(--emerald);
+
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+
+  align-self: start;
+  padding-top: 8px;
+}
+
+/* ==========================================
+   QUESTION TYPOGRAPHY
+   ========================================== */
+
+.questionText {
+  color: inherit;
+
+  font-size: clamp(18px, 1.7vw, 24px);
+  font-weight: 650;
+
+  letter-spacing: -0.035em;
+  line-height: 1.35;
+
+  transition: color 0.28s ease;
+}
+
+.faqItemActive .questionText {
+  color: var(--deep);
+  font-weight: 700;
+}
+
+/* ==========================================
+   PLUS / MINUS TOGGLE
+   ========================================== */
+
+.faqToggle {
+  display: grid;
+  place-items: center;
+
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid rgba(7, 31, 27, 0.18);
+  border-radius: 50%;
+
+  background: var(--white);
+  color: var(--deep);
+
+  font-size: 24px;
+  font-weight: 300;
+
+  transition:
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease,
+    transform 0.28s ease;
+}
+
+.faqItemActive .faqToggle,
+.question:hover .faqToggle {
+  background: var(--showcase);
+  color: var(--white);
+
+  border-color: var(--showcase);
+}
+
+.faqItemActive .faqToggle {
+  transform: rotate(0deg);
+}
+
+/* ==========================================
+   ANSWER PANEL
+   ========================================== */
+
+.answerOuter {
+  padding: 0 65px 26px 55px;
+}
+
+.answerOuter[hidden] {
+  display: none;
+}
+
+.answerOuter p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: clamp(15px, 1.05vw, 16px);
+  line-height: 1.75;
+
+  animation: faqReveal 0.35s var(--ease);
+}
+
+/* ==========================================
+   REVEAL ANIMATION
+   ========================================== */
+
+@keyframes faqReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   TABLET
+   ========================================== */
+
+@media (max-width: 1050px) {
+  .faqLayout {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .faqIntro {
+    position: static;
+  }
+
+  .faqIntro h2 {
+    max-width: 16ch;
+  }
+
+  .faqIntro p {
+    max-width: 650px;
+  }
+}
+
+/* ==========================================
+   MOBILE
+   ========================================== */
+
+@media (max-width: 660px) {
+  .faq {
+    padding: 55px 0;
+  }
+
+  .wrap {
+    width: calc(100% - 32px);
+  }
+
+  .faqLayout {
+    gap: 32px;
+  }
+
+  .eyebrow {
+    margin-bottom: 18px;
+  }
+
+  .faqIntro h2 {
+    font-size: clamp(36px, 9vw, 54px);
+    line-height: 1.06;
+    margin-bottom: 18px;
+  }
+
+  .faqIntro p {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+  }
+
+  .question {
+    grid-template-columns:
+      25px
+      minmax(0, 1fr)
+      34px;
+
+    gap: 10px;
+    padding: 23px 0;
+  }
+
+  .questionText {
+    font-size: 17px;
+    line-height: 1.4;
+  }
+
+  .faqToggle {
+    width: 32px;
+    height: 32px;
+    font-size: 21px;
+  }
+
+  .answerOuter {
+    padding: 0 8px 23px 35px;
+  }
+
+  .answerOuter p {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .faq *,
+  .faq *::before,
+  .faq *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
