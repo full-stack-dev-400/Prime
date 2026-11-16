@@ -1,63 +1,218 @@
 "use client";
 
-import { useState } from "react";
-import Logo from "./Logo";
+import { useState, type FormEvent } from "react";
+import Image from "next/image";
+import styles from "./Footer.module.css";
+
+type SubscribeStatus = "idle" | "loading" | "success" | "error";
 
 export default function Footer() {
-  const [state, setState] = useState<"idle" | "ok" | "err">("idle");
+  const [status, setStatus] = useState<SubscribeStatus>("idle");
 
-  async function subscribe(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const email = new FormData(e.currentTarget).get("email");
-    const res = await fetch("/api/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    }).catch(() => null);
-    setState(res?.ok ? "ok" : "err");
-    if (res?.ok) e.currentTarget.reset();
+  const [message, setMessage] = useState("");
+
+  async function subscribe(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (status === "loading") return;
+
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    const email = String(data.get("email") ?? "").trim();
+
+    if (!email) {
+      setStatus("error");
+      setMessage("Please enter your email address.");
+      return;
+    }
+
+    setStatus("loading");
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        setStatus("error");
+
+        setMessage(
+          response.status === 400 || response.status === 422
+            ? "Please enter a valid email address."
+            : "Unable to subscribe right now. Please try again.",
+        );
+
+        return;
+      }
+
+      setStatus("success");
+      setMessage("Subscribed successfully. Thank you!");
+      form.reset();
+    } catch {
+      setStatus("error");
+      setMessage("Connection error. Please try again.");
+    }
   }
 
   return (
-    <footer className="bg-navy-footer pt-16 text-sm">
-      <div className="container-site grid gap-10 pb-12 md:grid-cols-[1.4fr_1fr_1fr_1.4fr]">
-        <div>
-          <Logo className="h-8 w-auto" />
-          <p className="mt-4 max-w-xs text-mist-muted">Global markets. Local insight. Prime liquidity for brokers, funds and exchanges.</p>
-        </div>
-        <div>
-          <p className="font-semibold text-offwhite">Solutions</p>
-          <ul className="mt-4 space-y-2 text-mist-muted">
-            <li><a href="#solutions" className="hover:text-offwhite">FX liquidity</a></li>
-            <li><a href="#solutions" className="hover:text-offwhite">FIX connectivity</a></li>
-            <li><a href="#solutions" className="hover:text-offwhite">Risk control</a></li>
-          </ul>
-        </div>
-        <div>
-          <p className="font-semibold text-offwhite">Company</p>
-          <ul className="mt-4 space-y-2 text-mist-muted">
-            <li><a href="#infrastructure" className="hover:text-offwhite">Infrastructure</a></li>
-            <li><a href="#clients" className="hover:text-offwhite">Who we serve</a></li>
-            <li><a href="#contact" className="hover:text-offwhite">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <p className="font-semibold text-offwhite">Market insight</p>
-          <p className="mt-4 text-mist-muted">Weekly FX liquidity notes from our London desk.</p>
-          <form onSubmit={subscribe} className="mt-4 flex gap-2">
-            <input name="email" type="email" required placeholder="you@company.com" className="field !rounded-full !py-2.5" aria-label="Email" />
-            <button className="btn-primary !px-4 !py-2.5">Join</button>
-          </form>
-          {state === "ok" && <p className="mt-2 text-xs text-up">Subscribed — thank you.</p>}
-          {state === "err" && <p className="mt-2 text-xs text-down">Please enter a valid email.</p>}
+    <footer className={styles.footer}>
+      <div className={styles.container}>
+        <div className={styles.main}>
+          {/* BRAND */}
+          <div className={styles.brand}>
+            <div className={styles.logoWrap}>
+              <Image
+                src="/images/JKVPrimelogo.png"
+                alt="JKV Prime — The Prime Partner for Global Brokers"
+                width={260}
+                height={98}
+                className={styles.logo}
+              />
+            </div>
+
+            <p className={styles.brandDescription}>
+              Global markets. Local insight. Prime liquidity for brokers, funds
+              and exchanges.
+            </p>
+
+            <div className={styles.brandLine} />
+          </div>
+
+          {/* SOLUTIONS */}
+          <nav
+            className={styles.column}
+            aria-label="Footer solutions navigation"
+          >
+            <h3>Solutions</h3>
+
+            <ul className={styles.linkList}>
+              <li>
+                <a href="#solutions">FX liquidity</a>
+              </li>
+              <li>
+                <a href="#solutions">FIX connectivity</a>
+              </li>
+              <li>
+                <a href="#solutions">Risk control</a>
+              </li>
+            </ul>
+          </nav>
+
+          {/* COMPANY */}
+          <nav className={styles.column} aria-label="Footer company navigation">
+            <h3>Company</h3>
+
+            <ul className={styles.linkList}>
+              <li>
+                <a href="#infrastructure">Infrastructure</a>
+              </li>
+              <li>
+                <a href="#clients">Who we serve</a>
+              </li>
+              <li>
+                <a href="#about">About JKV Prime</a>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
+            </ul>
+          </nav>
+
+          {/* NEWSLETTER */}
+          <div className={styles.newsletter}>
+            <h3>Market insights</h3>
+
+            <p className={styles.newsletterText}>
+              Subscribe for institutional market insights and liquidity updates
+              from JKV Prime.
+            </p>
+
+            <form className={styles.subscribeForm} onSubmit={subscribe}>
+              <label htmlFor="footer-subscribe-email" className={styles.srOnly}>
+                Work email address
+              </label>
+
+              <div className={styles.inputWrap}>
+                <input
+                  id="footer-subscribe-email"
+                  name="email"
+                  type="email"
+                  required
+                  maxLength={254}
+                  autoComplete="email"
+                  placeholder="you@company.com"
+                  className={styles.emailInput}
+                  disabled={status === "loading"}
+                  onChange={() => {
+                    if (status === "error" || status === "success") {
+                      setStatus("idle");
+                      setMessage("");
+                    }
+                  }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className={styles.subscribeButton}
+                disabled={status === "loading"}
+              >
+                <span>{status === "loading" ? "Joining..." : "Join"}</span>
+
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 12h14m-6-6 6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </form>
+
+            {message && (
+              <p
+                className={status === "success" ? styles.success : styles.error}
+                role="status"
+                aria-live="polite"
+              >
+                {message}
+              </p>
+            )}
+
+            <p className={styles.newsletterNote}>
+              Institutional market insights. No spam.
+            </p>
+          </div>
         </div>
       </div>
-      <div className="border-t border-navy-4/40">
-        <div className="container-site flex flex-col gap-3 py-6 text-xs text-mist-muted md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} JKV Global. All rights reserved.</p>
-          <p className="max-w-2xl md:text-right">
-            Trading leveraged products carries a high level of risk. Prices shown on this site are indicative only.
-          </p>
+
+      {/* FOOTER BOTTOM */}
+      <div className={styles.bottom}>
+        <div className={styles.container}>
+          <div className={styles.bottomInner}>
+            <p className={styles.copyright}>
+              © {new Date().getFullYear()} JKV Global. All rights reserved.
+            </p>
+
+            <p className={styles.disclaimer}>
+              Trading leveraged products carries a high level of risk. Prices
+              shown on this site are indicative only.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

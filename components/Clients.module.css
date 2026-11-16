@@ -48,12 +48,9 @@
 .eyebrow {
   display: flex;
   align-items: center;
-  gap: 12px;
-
   margin: 0 0 22px;
 
-  color: #65e0ba;
-
+  color: #16b8a6;
   font-size: 12px;
   font-weight: 750;
   letter-spacing: 0.15em;
@@ -61,12 +58,7 @@
 }
 
 .eyebrowLine {
-  display: block;
-
-  width: 28px;
-  height: 2px;
-
-  background: #65e0ba;
+  display: none;
 }
 
 .heading {
@@ -84,7 +76,7 @@
 
 .heading em {
   font-style: normal;
-  color: #65e0ba;
+  color: #16b8a6;
 }
 
 .intro {

@@ -209,18 +209,22 @@
   will-change: transform;
 }
 
+/* Consistent section labels across JKV Prime */
+
 .showcaseEyebrow,
 .eyebrow {
   display: block;
-  color: var(--emerald);
-  font-size: clamp(10px, 0.9vw, 13px);
-  font-weight: 800;
-  letter-spacing: 0.17em;
+  color: #16b8a6;
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.15em;
   line-height: 1.5;
+  text-transform: uppercase;
 }
 
+/* Label inside expanding panel */
+
 .showcaseEyebrow {
-  color: var(--mint);
   margin-bottom: clamp(14px, 2vw, 30px);
 }
 
@@ -231,6 +235,12 @@
   font-weight: 750;
   letter-spacing: -0.055em;
   text-wrap: balance;
+}
+
+/* Emerald accent for highlighted heading */
+
+.showcaseCopy h2 span {
+  color: #16b8a6;
 }
 
 .showcaseCopy p {
@@ -308,6 +318,7 @@
   line-height: 1.04;
   letter-spacing: -0.055em;
   text-wrap: balance;
+  color: #071f1b;
 }
 
 .processIntro > p {
@@ -590,4 +601,3 @@
     transform: translate3d(0, 12px, 0) rotate(3deg);
   }
 }
-

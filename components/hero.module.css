@@ -1,16 +1,30 @@
-/* JKV Prime — video-first hero */
+/* ============================================
+   JKV PRIME — VIDEO-FIRST HERO
+   Official Brand Palette
+   ============================================ */
+
+/* ============================================
+   HERO CONTAINER
+   ============================================ */
 
 .hero {
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: center;
+
   min-height: 760px;
   min-height: max(760px, 100svh);
+
   overflow: hidden;
-  background: #0e1512;
-  color: #f4f7f5;
+
+  background: #071f1b;
+  color: #f4faf7;
 }
+
+/* ============================================
+   BACKGROUND VIDEO & POSTER
+   ============================================ */
 
 .media,
 .poster,
@@ -26,31 +40,37 @@
   pointer-events: none;
 }
 
-/* Placeholder image */
+/* Poster / fallback image */
+
 .poster {
   z-index: 0;
-  background-color: #0e1512;
+
+  background-color: #071f1b;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+
   opacity: 1;
   visibility: visible;
 }
 
-/* Completely hide image when video starts */
 .posterHidden {
   opacity: 0;
   visibility: hidden;
 }
 
 /* Background video */
+
 .video {
   z-index: 1;
   display: block;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
   object-position: center;
+
   opacity: 0;
 }
 
@@ -58,33 +78,43 @@
   opacity: 1;
 }
 
-/* Text readability overlays */
+/* ============================================
+   VIDEO READABILITY OVERLAY
+   ============================================ */
+
 .scrim {
   z-index: -1;
   pointer-events: none;
+
   background:
     linear-gradient(
       90deg,
-      rgba(7, 12, 10, 0.93) 0%,
-      rgba(7, 12, 10, 0.82) 28%,
-      rgba(7, 12, 10, 0.45) 52%,
-      rgba(7, 12, 10, 0.12) 76%,
-      rgba(7, 12, 10, 0.08) 100%
+      rgba(7, 31, 27, 0.93) 0%,
+      rgba(7, 31, 27, 0.82) 28%,
+      rgba(7, 31, 27, 0.45) 52%,
+      rgba(7, 31, 27, 0.12) 76%,
+      rgba(7, 31, 27, 0.08) 100%
     ),
     linear-gradient(
       180deg,
-      rgba(7, 12, 10, 0.3) 0%,
+      rgba(7, 31, 27, 0.3) 0%,
       transparent 25%,
       transparent 76%,
-      rgba(7, 12, 10, 0.65) 100%
+      rgba(7, 31, 27, 0.65) 100%
     );
 }
+
+/* ============================================
+   CONTENT CONTAINER
+   ============================================ */
 
 .container {
   position: relative;
   z-index: 1;
+
   width: min(100% - 48px, 1240px);
   margin-inline: auto;
+
   padding-block: 150px 110px;
 }
 
@@ -92,34 +122,55 @@
   max-width: 690px;
 }
 
+/* ============================================
+   HERO TYPOGRAPHY
+   ============================================ */
+
 .title {
   max-width: 690px;
   margin: 0;
+
   font-family: inherit;
   font-size: clamp(2.7rem, 5vw, 4.75rem);
   font-weight: 650;
   line-height: 1.07;
   letter-spacing: -0.055em;
+
   text-wrap: balance;
-  color: #f4f7f5;
+
+  color: #f4faf7;
 }
+
+/* JKV Prime secondary heading color */
+
 .title span {
-  color: #138a7d;
+  color: #16b8a6;
 }
+
+/* Description */
+
 .description {
   max-width: 600px;
   margin: 26px 0 0;
+
   font-size: clamp(1rem, 1.35vw, 1.125rem);
   font-weight: 400;
   line-height: 1.8;
-  color: #d3ded8;
+
+  color: #e6f6f2;
   text-wrap: pretty;
 }
+
+/* ============================================
+   HERO ACTION BUTTONS
+   Matching Packages Section
+   ============================================ */
 
 .actions {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+
   gap: 14px;
   margin-top: 36px;
 }
@@ -127,63 +178,120 @@
 .primaryButton,
 .secondaryButton {
   display: inline-flex;
+
   min-height: 54px;
+
   align-items: center;
   justify-content: center;
   gap: 14px;
+
   padding: 14px 24px;
+
   border: 1px solid transparent;
   border-radius: 999px;
+
   font: inherit;
   font-size: 0.94rem;
   font-weight: 650;
   line-height: 1.2;
+
   text-decoration: none;
   white-space: nowrap;
+
+  cursor: pointer;
+
   transition:
-    transform 200ms ease,
-    background 200ms ease,
-    border-color 200ms ease;
+    transform 280ms ease,
+    background-color 280ms ease,
+    color 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease;
 }
 
+/* ============================================
+   PRIMARY BUTTON
+   Default: Emerald + White
+   Hover: White + Deep Green
+   ============================================ */
+
 .primaryButton {
-  background: #65e0ba;
-  color: #09150f;
+  background: #16b8a6;
+  color: #ffffff;
+
+  box-shadow: 0 12px 30px rgba(7, 31, 27, 0.16);
 }
 
 .primaryButton:hover {
+  background: #ffffff;
+  color: #071f1b;
+
+  border-color: #16b8a6;
+
   transform: translateY(-2px);
-  background: #84efcb;
 }
 
+/* ============================================
+   SECONDARY BUTTON
+   Default: White + Deep Green
+   Hover: Emerald + White Text + White Border
+   ============================================ */
+
 .secondaryButton {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(237, 246, 240, 0.4);
-  color: #f4f7f5;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: #ffffff;
+  color: #071f1b;
+  border: 1px solid #ffffff;
+
+  box-shadow: 0 16px 38px rgba(7, 31, 27, 0.16);
 }
 
 .secondaryButton:hover {
+  background: #16b8a6;
+  color: #ffffff;
+  border-color: #ffffff;
+
   transform: translateY(-2px);
-  border-color: #65e0ba;
-  background: rgba(255, 255, 255, 0.12);
 }
+
+/* ============================================
+   BUTTON ARROW ANIMATION
+   ============================================ */
+
+.primaryButton span {
+  display: inline-block;
+
+  transition: transform 280ms ease;
+}
+
+.primaryButton:hover span {
+  transform: translate(2px, -2px);
+}
+
+/* ============================================
+   ACCESSIBILITY FOCUS
+   ============================================ */
 
 .primaryButton:focus-visible,
 .secondaryButton:focus-visible {
-  outline: 3px solid #d8fff0;
+  outline: 3px solid #65e0ba;
   outline-offset: 4px;
 }
 
-/* Desktop: video at 80%, aligned right */
+/* ============================================
+   DESKTOP
+   Video at 80%, aligned right
+   ============================================ */
+
 @media (min-width: 901px) {
   .media {
     inset: auto 0 auto auto;
+
     top: 50%;
+
     width: 80%;
     height: 80%;
+
     transform: translateY(-50%);
+
     -webkit-mask-image:
       linear-gradient(to right, transparent 0%, #000 20%, #000 100%),
       linear-gradient(
@@ -193,7 +301,9 @@
         #000 88%,
         transparent 100%
       );
+
     -webkit-mask-composite: source-in;
+
     mask-image:
       linear-gradient(to right, transparent 0%, #000 20%, #000 100%),
       linear-gradient(
@@ -203,6 +313,7 @@
         #000 88%,
         transparent 100%
       );
+
     mask-composite: intersect;
   }
 
@@ -217,7 +328,10 @@
   }
 }
 
-/* Tablet */
+/* ============================================
+   TABLET
+   ============================================ */
+
 @media (max-width: 900px) {
   .hero {
     min-height: 720px;
@@ -236,20 +350,23 @@
     background:
       linear-gradient(
         90deg,
-        rgba(7, 12, 10, 0.92),
-        rgba(7, 12, 10, 0.53) 75%,
-        rgba(7, 12, 10, 0.36)
+        rgba(7, 31, 27, 0.92),
+        rgba(7, 31, 27, 0.53) 75%,
+        rgba(7, 31, 27, 0.36)
       ),
       linear-gradient(
         180deg,
-        rgba(7, 12, 10, 0.32),
+        rgba(7, 31, 27, 0.32),
         transparent 25%,
-        rgba(7, 12, 10, 0.55)
+        rgba(7, 31, 27, 0.55)
       );
   }
 }
 
-/* Mobile */
+/* ============================================
+   MOBILE
+   ============================================ */
+
 @media (max-width: 600px) {
   .hero {
     min-height: 680px;
@@ -258,6 +375,7 @@
 
   .container {
     width: min(100% - 40px, 1240px);
+
     padding-block: 132px 84px;
   }
 
@@ -268,6 +386,7 @@
 
   .description {
     margin-top: 22px;
+
     font-size: 1rem;
     line-height: 1.7;
   }
@@ -280,7 +399,9 @@
   .primaryButton,
   .secondaryButton {
     min-height: 50px;
+
     padding: 13px 20px;
+
     font-size: 0.9rem;
   }
 
@@ -294,19 +415,33 @@
 
   .scrim {
     background:
-      linear-gradient(90deg, rgba(7, 12, 10, 0.78), rgba(7, 12, 10, 0.55)),
+      linear-gradient(90deg, rgba(7, 31, 27, 0.78), rgba(7, 31, 27, 0.55)),
       linear-gradient(
         180deg,
-        rgba(7, 12, 10, 0.6),
-        rgba(7, 12, 10, 0.15) 40%,
-        rgba(7, 12, 10, 0.78)
+        rgba(7, 31, 27, 0.6),
+        rgba(7, 31, 27, 0.15) 40%,
+        rgba(7, 31, 27, 0.78)
       );
   }
 }
 
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
 @media (prefers-reduced-motion: reduce) {
   .primaryButton,
-  .secondaryButton {
+  .secondaryButton,
+  .primaryButton span {
     transition: none;
+  }
+
+  .primaryButton:hover,
+  .secondaryButton:hover {
+    transform: none;
+  }
+
+  .primaryButton:hover span {
+    transform: none;
   }
 }

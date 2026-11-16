@@ -1,0 +1,113 @@
+.root {
+  display: block;
+  max-width: min(100%, 1080px);
+  min-width: 0;
+  margin-inline: auto;
+  overflow: visible;
+  position: relative;
+  isolation: isolate;
+}
+
+.artwork {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  overflow: visible;
+}
+
+/* Only transform nested groups; parent translates tiles into place. */
+.currencyTile {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: tileFloat 5.2s ease-in-out infinite;
+  transition: filter 350ms ease;
+  will-change: transform;
+}
+
+.currency1 { animation-delay: -0.2s; }
+.currency2 { animation-delay: -1.5s; }
+.currency3 { animation-delay: -2.8s; }
+.currency4 { animation-delay: -4s; }
+
+.currencyTile:hover {
+  filter: drop-shadow(0 0 13px rgb(28 242 162 / 56%));
+  animation-play-state: paused;
+  transform: translateY(-7px) scale(1.05);
+}
+
+.tileHighlight {
+  animation: tilePulse 3.6s ease-in-out infinite;
+}
+
+.wallLight {
+  animation: wallBreath 5s ease-in-out infinite;
+}
+
+.columnGleam {
+  animation: columnBreath 4.6s ease-in-out infinite;
+}
+
+.roofShimmer {
+  animation: roofLight 7s ease-in-out infinite;
+}
+
+.plinthGleam {
+  animation: baseLight 6.8s ease-in-out infinite;
+}
+
+@keyframes tileFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes tilePulse {
+  0%, 100% { stroke-opacity: .14; }
+  50% { stroke-opacity: .75; }
+}
+
+@keyframes wallBreath {
+  0%, 100% { opacity: .5; }
+  50% { opacity: .95; }
+}
+
+@keyframes columnBreath {
+  0%, 100% { opacity: .35; }
+  50% { opacity: .88; }
+}
+
+@keyframes roofLight {
+  0%, 100% { opacity: .12; }
+  35% { opacity: .85; }
+  70% { opacity: .25; }
+}
+
+@keyframes baseLight {
+  0%, 100% { opacity: .2; }
+  50% { opacity: .85; }
+}
+
+.still .currencyTile:hover {
+  filter: none;
+  transform: none;
+}
+
+.still *,
+.still *::before,
+.still *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .currencyTile:hover {
+    transform: none;
+    filter: none;
+  }
+  .root *,
+  .root *::before,
+  .root *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

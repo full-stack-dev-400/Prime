@@ -1,0 +1,663 @@
+/* ==========================================
+   JKV PRIME — ABOUT SECTION
+   Official Brand Design System
+   ========================================== */
+
+.section {
+  --deep: #071f1b;
+  --showcase: #103a32;
+  --emerald: #16b8a6;
+  --mint: #65e0ba;
+  --soft-mint: #e6f6f2;
+  --text-light: #f4faf7;
+  --white: #ffffff;
+
+  --text-muted: #42655e;
+  --border-soft: rgba(7, 31, 27, 0.1);
+
+  background: var(--text-light);
+  color: var(--deep);
+
+  padding: clamp(60px, 6vw, 90px) 0 clamp(24px, 3vw, 45px);
+
+  font-family: inherit;
+}
+
+.section *,
+.section *::before,
+.section *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   CONTAINER
+   ========================================== */
+
+.container {
+  width: min(1440px, calc(100% - clamp(32px, 7vw, 112px)));
+
+  margin-inline: auto;
+}
+
+/* ==========================================
+   INTRO LAYOUT
+   ========================================== */
+
+.intro {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(0, 0.95fr);
+
+  gap: clamp(30px, 5vw, 80px);
+
+  align-items: end;
+
+  margin-bottom: clamp(36px, 4.5vw, 64px);
+}
+
+/* ==========================================
+   SECTION LABEL
+   Same styling as Solutions / Who We Serve
+   ========================================== */
+
+.eyebrow {
+  display: block;
+
+  margin: 0 0 22px;
+
+  color: var(--emerald);
+
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.5;
+  letter-spacing: 0.15em;
+
+  text-transform: uppercase;
+}
+
+/* No decorative dash */
+
+.eyebrow::before,
+.eyebrow::after {
+  content: none;
+  display: none;
+}
+
+/* ==========================================
+   MAIN HEADING
+   ========================================== */
+
+.title {
+  margin: 0;
+
+  color: var(--deep);
+
+  font-size: clamp(42px, 5.2vw, 78px);
+  font-weight: 700;
+
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+
+  text-wrap: balance;
+}
+
+/* Highlighted heading */
+
+.title span {
+  color: var(--emerald);
+}
+
+/* ==========================================
+   INTRO BODY
+   ========================================== */
+
+.introBody {
+  max-width: 650px;
+}
+
+.introBody p {
+  margin: 0 0 17px;
+
+  color: var(--text-muted);
+
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 400;
+
+  line-height: 1.7;
+}
+
+.introBody p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* ==========================================
+   ACTION BUTTONS
+   ========================================== */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 28px;
+}
+
+.primaryAction,
+.secondaryAction {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+
+  min-height: 54px;
+
+  padding: 13px 23px;
+
+  border: 1px solid transparent;
+  border-radius: 999px;
+
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.2;
+
+  text-decoration: none;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.28s ease,
+    color 0.28s ease,
+    border-color 0.28s ease,
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+/* Primary: Emerald */
+
+.primaryAction {
+  background: var(--emerald);
+  color: var(--white);
+
+  border-color: var(--emerald);
+
+  box-shadow: 0 12px 30px rgba(7, 31, 27, 0.12);
+}
+
+/* Primary hover */
+
+.primaryAction:hover {
+  background: var(--white);
+  color: var(--deep);
+
+  border-color: var(--emerald);
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 16px 35px rgba(7, 31, 27, 0.1);
+}
+
+/* Secondary: White */
+
+.secondaryAction {
+  background: var(--white);
+  color: var(--deep);
+
+  border-color: var(--white);
+
+  box-shadow: 0 8px 26px rgba(7, 31, 27, 0.06);
+}
+
+/* Secondary hover */
+
+.secondaryAction:hover {
+  background: var(--emerald);
+  color: var(--white);
+
+  border-color: var(--white);
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 14px 32px rgba(7, 31, 27, 0.12);
+}
+
+/* Button icons */
+
+.primaryAction svg,
+.secondaryAction svg {
+  display: block;
+
+  width: 18px;
+  height: 18px;
+
+  flex-shrink: 0;
+
+  transition: transform 0.28s ease;
+}
+
+.primaryAction:hover svg,
+.secondaryAction:hover svg {
+  transform: translateX(3px);
+}
+
+/* Keyboard accessibility */
+
+.primaryAction:focus-visible,
+.secondaryAction:focus-visible {
+  outline: 3px solid var(--emerald);
+  outline-offset: 4px;
+}
+
+/* ==========================================
+   BENTO GRID
+   Preserve alternating layout
+   ========================================== */
+
+.bento {
+  display: grid;
+
+  grid-template-columns: repeat(20, minmax(0, 1fr));
+
+  gap: clamp(13px, 1.6vw, 24px);
+}
+
+/* ==========================================
+   BASE CARD
+   ========================================== */
+
+.card {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  min-height: 420px;
+
+  overflow: hidden;
+
+  border: 1px solid var(--border-soft);
+
+  border-radius: clamp(20px, 2vw, 30px);
+
+  background: var(--white);
+
+  box-shadow: 0 13px 45px rgba(7, 31, 27, 0.06);
+
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(22, 184, 166, 0.28);
+
+  box-shadow: 0 24px 60px rgba(7, 31, 27, 0.12);
+}
+
+/* ==========================================
+   BENTO GRID POSITIONS
+   ========================================== */
+
+.fsc {
+  grid-column: span 7;
+}
+
+.infrastructure {
+  grid-column: span 13;
+}
+
+.packages {
+  grid-column: span 13;
+}
+
+.operations {
+  grid-column: span 7;
+}
+
+/* ==========================================
+   IMAGE AREA
+   ========================================== */
+
+.imageArea {
+  position: relative;
+
+  width: 100%;
+  min-height: 260px;
+
+  flex: 1 1 auto;
+
+  overflow: hidden;
+
+  background: var(--showcase);
+}
+
+/* Full image */
+
+.cardImage {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center center;
+
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .cardImage {
+  transform: scale(1.035);
+}
+
+/* Light overlay for image integration */
+
+.imageSheen {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    180deg,
+    transparent 72%,
+    rgba(7, 31, 27, 0.1) 100%
+  );
+
+  pointer-events: none;
+}
+
+/* ==========================================
+   CARD FOOTER
+   ========================================== */
+
+.cardFooter {
+  display: flex;
+
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  padding: 22px clamp(18px, 2.4vw, 34px) 25px;
+
+  min-height: 148px;
+
+  background: var(--white);
+}
+
+/* Alternate soft-mint footer backgrounds */
+
+.infrastructure .cardFooter,
+.operations .cardFooter {
+  background: var(--soft-mint);
+}
+
+.cardInfo {
+  min-width: 0;
+}
+
+/* ==========================================
+   CARD LABEL
+   ========================================== */
+
+.kicker {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: var(--emerald);
+
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 1.4;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ==========================================
+   CARD HEADING
+   ========================================== */
+
+.cardFooter h3 {
+  margin: 0 0 8px;
+
+  color: var(--deep);
+
+  font-size: clamp(26px, 2.3vw, 38px);
+  font-weight: 700;
+
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+
+  text-wrap: balance;
+}
+
+/* ==========================================
+   CARD DESCRIPTION
+   ========================================== */
+
+.cardFooter p {
+  margin: 0;
+
+  color: var(--text-muted);
+
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 400;
+
+  line-height: 1.55;
+}
+
+/* ==========================================
+   CORNER MARK
+   ========================================== */
+
+.cornerMark {
+  display: grid;
+  place-items: center;
+
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(7, 31, 27, 0.18);
+
+  border-radius: 50%;
+
+  background: transparent;
+
+  color: var(--deep);
+
+  font-size: 20px;
+
+  transition:
+    transform 0.4s ease,
+    border-color 0.4s ease,
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+.card:hover .cornerMark {
+  transform: rotate(45deg);
+
+  background: var(--emerald);
+  border-color: var(--emerald);
+
+  color: var(--white);
+}
+
+/* ==========================================
+   LAPTOP / SMALL DESKTOP
+   ========================================== */
+
+@media (max-width: 1050px) {
+  .intro {
+    grid-template-columns: 1fr;
+
+    gap: 24px;
+  }
+
+  .introBody {
+    max-width: 720px;
+  }
+
+  .desktopBreak {
+    display: none;
+  }
+
+  .imageArea {
+    min-height: 220px;
+  }
+
+  .card {
+    min-height: 365px;
+  }
+
+  .cardFooter {
+    min-height: 140px;
+    padding: 20px;
+  }
+}
+
+/* ==========================================
+   TABLET / MOBILE
+   ========================================== */
+
+@media (max-width: 760px) {
+  .section {
+    padding: 55px 0 24px;
+  }
+
+  .container {
+    width: calc(100% - 32px);
+  }
+
+  .intro {
+    margin-bottom: 34px;
+    gap: 20px;
+  }
+
+  .eyebrow {
+    margin-bottom: 18px;
+  }
+
+  .title {
+    font-size: clamp(38px, 8vw, 58px);
+    line-height: 1.06;
+  }
+
+  .introBody p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .actions {
+    margin-top: 24px;
+  }
+
+  /* Single column bento */
+
+  .bento {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .fsc,
+  .infrastructure,
+  .packages,
+  .operations {
+    grid-column: 1 / -1;
+  }
+
+  .card {
+    min-height: 0;
+  }
+
+  .imageArea {
+    flex: none;
+
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+
+  .cardImage {
+    object-fit: cover;
+  }
+
+  .cardFooter {
+    min-height: 128px;
+    padding: 20px;
+  }
+
+  .cardFooter h3 {
+    font-size: 30px;
+  }
+}
+
+/* ==========================================
+   SMALL MOBILE
+   ========================================== */
+
+@media (max-width: 420px) {
+  .title {
+    font-size: clamp(34px, 9vw, 38px);
+  }
+
+  .introBody p {
+    font-size: 15px;
+  }
+
+  .actions {
+    gap: 10px;
+  }
+
+  .actions a {
+    min-height: 48px;
+
+    padding: 10px 16px;
+
+    font-size: 12px;
+  }
+
+  .cardFooter {
+    padding: 19px;
+  }
+
+  .cardFooter h3 {
+    font-size: 27px;
+  }
+
+  .cornerMark {
+    width: 33px;
+    height: 33px;
+  }
+}
+
+/* ==========================================
+   REDUCED MOTION
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .cardImage,
+  .cornerMark,
+  .primaryAction,
+  .secondaryAction,
+  .primaryAction svg,
+  .secondaryAction svg {
+    transition: none !important;
+  }
+
+  .card:hover,
+  .primaryAction:hover,
+  .secondaryAction:hover {
+    transform: none;
+  }
+}

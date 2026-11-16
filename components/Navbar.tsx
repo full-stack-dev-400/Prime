@@ -2,14 +2,64 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Logo from "./Logo";
+import Image from "next/image";
+
+import styles from "./Navbar.module.css";
 
 const LINKS = [
+  { href: "/", label: "Home" },
   { href: "#solutions", label: "Solutions" },
   { href: "#infrastructure", label: "Infrastructure" },
-  { href: "#clients", label: "Who we serve" },
-  { href: "#onboarding", label: "Onboarding" },
-];
+
+  { href: "#who-we-serve", label: "Who we serve" },
+
+  { href: "#risk", label: "Risk tools" },
+  { href: "#packages", label: "Packages" },
+  { href: "#about", label: "About us" },
+  { href: "#faq", label: "FAQ" },
+] as const;
+
+function MenuIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {open ? (
+        <path d="M6 6l12 12M18 6L6 18" />
+      ) : (
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      )}
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M5 12h14m-6-6 6 6-6 6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -27,26 +77,13 @@ export default function Navbar() {
 
       setScrolled(currentScrollY > 12);
 
-      // Always show the navbar near the top.
-      if (currentScrollY <= 80) {
+      if (currentScrollY <= 80 || open) {
         setHidden(false);
         lastScrollY = currentScrollY;
-      }
-
-      // Keep the navbar visible while mobile menu is open.
-      else if (open) {
-        setHidden(false);
-        lastScrollY = currentScrollY;
-      }
-
-      // Hide while scrolling down.
-      else if (difference > 6) {
+      } else if (difference > 6) {
         setHidden(true);
         lastScrollY = currentScrollY;
-      }
-
-      // Show while scrolling up.
-      else if (difference < -6) {
+      } else if (difference < -6) {
         setHidden(false);
         lastScrollY = currentScrollY;
       }
@@ -56,8 +93,8 @@ export default function Navbar() {
 
     const handleScroll = () => {
       if (!ticking) {
-        frameId = window.requestAnimationFrame(updateNavbar);
         ticking = true;
+        frameId = window.requestAnimationFrame(updateNavbar);
       }
     };
 
@@ -73,150 +110,158 @@ export default function Navbar() {
     };
   }, [open]);
 
+  // Close the mobile menu using Escape.
+  useEffect(() => {
+    if (!open) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [open]);
+
+  // Close the menu when the viewport becomes desktop-sized.
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1350px)");
+
+    const handleChange = () => {
+      if (media.matches) {
+        setOpen(false);
+      }
+    };
+
+    media.addEventListener("change", handleChange);
+
+    return () => {
+      media.removeEventListener("change", handleChange);
+    };
+  }, []);
+
+  // Prevent page scrolling behind the open mobile menu.
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
   const shouldHide = hidden && !open;
 
-  const contactButton =
-    "inline-flex items-center justify-center rounded-full " +
-    "bg-[#65E0BA] px-5 py-2.5 text-sm font-semibold " +
-    "text-[#071F1B] transition-colors duration-200 " +
-    "hover:bg-[#16B8A6] focus-visible:outline " +
-    "focus-visible:outline-2 focus-visible:outline-offset-4 " +
-    "focus-visible:outline-[#65E0BA]";
+  const closeMenu = () => {
+    setOpen(false);
+    setHidden(false);
+  };
 
   return (
     <header
-      className={`
-        fixed inset-x-0 top-0 z-50
-        border-b border-white/10
-        bg-[#103A32]
-        text-[#F4FAF7]
-        transition-[transform,box-shadow,background-color]
-        duration-300
-        ease-[cubic-bezier(0.22,1,0.36,1)]
-        motion-reduce:transition-none
-        ${shouldHide ? "-translate-y-full" : "translate-y-0"}
-        ${
-          scrolled || open
-            ? "shadow-[0_12px_35px_rgba(0,0,0,0.22)]"
-            : "shadow-none"
-        }
-      `}
+      className={[
+        styles.header,
+        scrolled || open ? styles.scrolled : "",
+        shouldHide ? styles.hidden : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
-      <nav className="container-site flex h-16 items-center justify-between md:h-20">
-        {/* Logo */}
+      <nav className={styles.nav} aria-label="Main navigation">
+        {/* LOGO */}
         <Link
           href="/"
           aria-label="JKV Prime home"
-          onClick={() => setOpen(false)}
-          className="relative z-10"
+          className={styles.logoLink}
+          onClick={closeMenu}
         >
-          <Logo className="h-7 w-auto md:h-8" />
+          <Image
+            src="/images/JKVPrimelogo.png"
+            alt="JKV Prime — The Prime Partner for Global Brokers"
+            width={240}
+            height={90}
+            className={styles.logo}
+            priority
+          />
         </Link>
 
-        {/* Desktop Navigation */}
-        <ul className="hidden items-center gap-8 lg:flex">
+        {/* DESKTOP LINKS */}
+        <ul className={styles.desktopLinks}>
           {LINKS.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
-                className="
-                  relative text-sm font-medium
-                  text-[#F4FAF7]/85
-                  transition-colors duration-200
-                  hover:text-[#65E0BA]
-                "
-              >
+              <Link href={link.href} className={styles.navLink}>
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
 
-        {/* Desktop CTA */}
-        <div className="hidden lg:block">
-          <a href="#contact" className={contactButton}>
-            Get in touch
-          </a>
+        {/* DESKTOP CTA */}
+        <div className={styles.desktopAction}>
+          <Link href="#contact" className={styles.contactButton}>
+            <span>Get in touch</span>
+            <ArrowIcon />
+          </Link>
         </div>
 
-        {/* Mobile Toggle */}
+        {/* MOBILE TOGGLE */}
         <button
           type="button"
-          className="
-            rounded-lg p-2
-            text-[#F4FAF7]
-            transition-colors duration-200
-            hover:bg-white/10
-            lg:hidden
-          "
+          className={styles.menuToggle}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          aria-controls="mobile-menu"
+          aria-controls="prime-mobile-menu"
           onClick={() => {
             setOpen((previous) => !previous);
             setHidden(false);
           }}
         >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            {open ? (
-              <path d="M6 6l12 12M18 6L6 18" />
-            ) : (
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            )}
-          </svg>
+          <MenuIcon open={open} />
         </button>
       </nav>
 
-      {/* Mobile Navigation */}
+      {/* MOBILE NAVIGATION */}
       {open && (
-        <div
-          id="mobile-menu"
-          className="
-            container-site
-            border-t border-white/10
-            bg-[#103A32]
-            pb-6
-            lg:hidden
-          "
-        >
-          <ul className="flex flex-col gap-1 pt-3">
-            {LINKS.map((link) => (
+        <div id="prime-mobile-menu" className={styles.mobileMenu}>
+          <ul className={styles.mobileLinks}>
+            {LINKS.map((link, index) => (
               <li key={link.href}>
-                <a
+                <Link
                   href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="
-                    block rounded-lg px-3 py-3
-                    text-base font-medium
-                    text-[#F4FAF7]/85
-                    transition-colors duration-200
-                    hover:bg-white/10
-                    hover:text-[#65E0BA]
-                  "
+                  className={styles.mobileLink}
+                  onClick={closeMenu}
                 >
-                  {link.label}
-                </a>
+                  <span className={styles.mobileIndex}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <span>{link.label}</span>
+
+                  <span className={styles.mobileArrow} aria-hidden="true">
+                    ↗
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>
 
-          <a
-            href="#contact"
-            onClick={() => setOpen(false)}
-            className={`${contactButton} mt-4 w-full`}
-          >
-            Get in touch
-          </a>
+          <div className={styles.mobileAction}>
+            <Link
+              href="#contact"
+              className={styles.contactButton}
+              onClick={closeMenu}
+            >
+              <span>Get in touch</span>
+              <ArrowIcon />
+            </Link>
+          </div>
         </div>
       )}
     </header>

@@ -1,21 +1,26 @@
-/* JKV Prime Solutions — layout, proportions and motion adapted from the
-   supplied NextWave Build "Flagship programs" design.
-   One consistent mint green palette on all four cards. */
+/* ============================================
+   JKV PRIME — SOLUTIONS SECTION
+   Official Brand Palette
+   ============================================ */
 
 .section {
   --pad: clamp(20px, 4vw, 64px);
+
   --mint-card: #e6f6f2;
   --ink: #071f1b;
   --ink-soft: #42655e;
   --accent: #16b8a6;
   --mint: #65e0ba;
+
   --card-radius: clamp(26px, 3vw, 44px);
+
   position: relative;
   isolation: isolate;
   overflow: clip;
-  background: #fff;
+
+  background: #ffffff;
   color: var(--ink);
-  font-family: inherit; /* Use the same global font as the rest of JKV Prime. */
+  font-family: inherit;
 }
 
 .section *,
@@ -24,39 +29,62 @@
   box-sizing: border-box;
 }
 
-/* Original JKV Prime section heading — do not enlarge the main title. */
+/* ============================================
+   SECTION HEADER
+   ============================================ */
+
 .head {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
+
   gap: 28px;
   max-width: 1900px;
   margin: 0 auto;
+
   padding: clamp(90px, 14vh, 170px) var(--pad) 40px;
 }
-
 .kicker {
   display: block;
   margin-bottom: 22px;
-  color: #147f72;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+
+  color: #16b8a6;
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
+
+/* Remove any decorative dash */
+.kicker::before {
+  content: none;
+  display: none;
+}
+
+/* Main section heading */
 
 .head h2 {
   margin: 0;
   font-family: inherit;
   font-weight: 800;
+
   font-size: clamp(36px, 5.2vw, 84px);
   line-height: 0.98;
   letter-spacing: -0.055em;
+
+  color: #071f1b;
 }
 
+/* Approved JKV Prime heading accent */
+
 .head h2 span {
-  color: #138a7d;
+  color: #16b8a6;
 }
+
+/* ============================================
+   HEADER RIGHT CONTENT
+   ============================================ */
 
 .headRight {
   flex: 0 1 390px;
@@ -67,80 +95,153 @@
 .headRight p {
   margin: 0;
   max-width: 35ch;
+
   color: var(--ink-soft);
+
   font-size: clamp(16px, 1.1vw, 18px);
   line-height: 1.55;
 }
+
+/* ============================================
+   PRIMARY CTA — MATCHES HERO BUTTON
+   ============================================ */
 
 .cta {
   display: inline-flex;
   justify-self: start;
   align-items: center;
+  justify-content: center;
+
   gap: 14px;
+
+  min-height: 54px;
   padding: 14px 24px;
+
+  border: 1px solid #16b8a6;
   border-radius: 999px;
-  background: #103a32;
-  color: #f4faf7;
-  text-decoration: none;
+
+  background: #16b8a6;
+  color: #ffffff;
+
+  font-family: inherit;
   font-size: 15px;
-  font-weight: 600;
-  transition: background 250ms ease, transform 250ms ease;
+  font-weight: 650;
+  line-height: 1.2;
+
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition:
+    background-color 280ms ease,
+    color 280ms ease,
+    border-color 280ms ease,
+    transform 280ms ease,
+    box-shadow 280ms ease;
 }
 
-.cta:hover { background: #16b8a6; transform: translateY(-2px); }
-.cta:focus-visible { outline: 2px solid #16b8a6; outline-offset: 4px; }
+.cta:hover {
+  background: #ffffff;
+  color: #071f1b;
+  border-color: #16b8a6;
 
-/* Desktop scroll-pin: cards occupy the viewport, with a narrow progress rail. */
-.pin { position: relative; }
+  transform: translateY(-2px);
+}
+
+.cta span {
+  display: inline-block;
+  transition: transform 280ms ease;
+}
+
+.cta:hover span {
+  transform: translate(2px, -2px);
+}
+
+.cta:focus-visible {
+  outline: 3px solid #65e0ba;
+  outline-offset: 4px;
+}
+
+/* ============================================
+   HORIZONTAL SCROLL-PIN
+   ============================================ */
+
+.pin {
+  position: relative;
+}
 
 .viewport {
   position: sticky;
   top: 0;
+
   display: flex;
   flex-direction: column;
+
   height: 100svh;
   min-height: 0;
   overflow: hidden;
-  background: #fff;
+
+  background: #ffffff;
 }
 
 .track {
   display: flex;
   flex: 1 1 auto;
   align-items: stretch;
+
   gap: clamp(16px, 2vw, 28px);
+
   width: max-content;
   min-height: 0;
+
   padding: 10px var(--pad) 0;
+
   will-change: transform;
 }
 
-/* Reference Flagship width & oval ratio, with viewport-height cards. */
+/* ============================================
+   SOLUTION CARDS
+   ============================================ */
+
 .card {
   position: relative;
   isolation: isolate;
+
   flex: none;
+
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
+
   width: min(84vw, 1120px);
   height: 100%;
   min-height: 0;
-  /* Keep the top of the cards clear of the 64–80px floating navbar. */
-  padding: clamp(84px, 9vh, 108px) clamp(24px, 3.2vw, 44px) clamp(24px, 3.2vw, 44px);
+
+  padding: clamp(84px, 9vh, 108px) clamp(24px, 3.2vw, 44px)
+    clamp(24px, 3.2vw, 44px);
+
   border: 1px solid rgba(16, 58, 50, 0.12);
   border-radius: var(--card-radius);
+
   overflow: hidden;
-  background: var(--mint-card);  /* identical on all 4 cards */
+
+  background: var(--mint-card);
   color: var(--ink);
 }
+
+/* ============================================
+   ORBIT ANIMATION
+   ============================================ */
 
 .orbits {
   position: absolute;
   inset: 0;
   z-index: -1;
+
   display: block;
+
   width: 100%;
   height: 100%;
+
   pointer-events: none;
 }
 
@@ -151,85 +252,152 @@
   vector-effect: non-scaling-stroke;
 }
 
-.orbits .dot { fill: #103a32; stroke: none; }
+.orbits .dot {
+  fill: #103a32;
+  stroke: none;
+}
+
+/* ============================================
+   CARD NUMBER
+   ============================================ */
 
 .number {
   position: absolute;
   z-index: 3;
+
   top: clamp(86px, 9.5vh, 114px);
   left: clamp(24px, 3.2vw, 44px);
-  color: #138a7d;
+
+  color: #16b8a6;
+
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.14em;
 }
 
-/* EXACT reference width (56%, max 640px) and aspect (2.35). */
+/* ============================================
+   ANIMATED MEDIA / THREE.JS CANVAS
+   ============================================ */
+
 .media {
   position: relative;
   z-index: 1;
+
   grid-row: 1;
+
   justify-self: end;
   align-self: center;
+
   width: min(56%, 640px);
   max-width: 100%;
   aspect-ratio: 2.35;
+
   border-radius: 999px;
   overflow: hidden;
+
   background: rgba(255, 255, 255, 0.72);
+
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+
   will-change: transform;
+
   transform: translate3d(var(--scroll-x, 0%), 0, 0);
-  pointer-events: none; /* pointer interaction is handled by the entire card */
+
+  pointer-events: none;
 }
 
 .canvas {
   position: absolute;
   inset: 0;
+
   display: block;
   width: 100%;
   height: 100%;
 }
 
+/* ============================================
+   CARD CONTENT
+   ============================================ */
+
 .content {
   position: relative;
   z-index: 2;
+
   grid-row: 2;
   align-self: end;
+
   min-width: 0;
 }
 
-/* Large card titles only — same site-wide font family, not Unbounded. */
+/* ============================================
+   CARD HEADING — EXACTLY TWO LINES
+   ============================================ */
+
 .cardHeading {
   position: relative;
-  max-width: 12ch;
+
+  width: fit-content;
+  max-width: 100%;
+
   margin: 0;
-  color: var(--ink);
+
+  color: #071f1b;
+
   font-family: inherit;
   font-size: clamp(48px, 6.8vw, 120px);
   font-weight: 800;
   line-height: 0.98;
   letter-spacing: -0.045em;
+
   overflow-wrap: normal;
+
   will-change: transform;
+
   transform: translate3d(
     calc(var(--scroll-x, 0%) + var(--hover-x, 0px)),
     var(--hover-y, 0px),
     0
   );
-  transition: color 300ms ease, text-shadow 300ms ease;
+
+  transition:
+    color 300ms ease,
+    text-shadow 300ms ease;
 }
 
-/* Cursor grows over card as in reference; title has a subtle magnetic response. */
+/* Explicit two-line layout */
+
+.cardHeadingLine {
+  display: block;
+  white-space: nowrap;
+}
+
+/* All card titles use the same deep-green text */
+
+.cardHeadingLine:first-child,
+.cardHeadingLine:last-child {
+  color: inherit;
+}
+
+/* Magnetic hover effect */
+
 .cardHeading:hover {
   color: #103a32;
-  text-shadow: 0 12px 28px rgba(22, 184, 166, 0.10);
+
+  text-shadow: 0 12px 28px rgba(22, 184, 166, 0.1);
 }
+
+/* ============================================
+   CARD FOOTER
+   ============================================ */
 
 .foot {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
+
   align-items: end;
+
   gap: clamp(20px, 3vw, 40px);
   margin-top: clamp(14px, 2vh, 24px);
 }
@@ -237,7 +405,9 @@
 .foot p {
   max-width: 34ch;
   margin: 0;
+
   color: var(--ink-soft);
+
   font-size: clamp(16px, 1.35vw, 21px);
   line-height: 1.5;
 }
@@ -245,15 +415,20 @@
 .foot ul {
   display: grid;
   gap: 10px;
+
   margin: 0;
   padding: 0;
+
   list-style: none;
 }
 
 .foot li {
   position: relative;
+
   padding-left: 23px;
+
   color: #103a32;
+
   font-size: clamp(13px, 1vw, 16px);
   font-weight: 600;
   line-height: 1.38;
@@ -261,142 +436,377 @@
 
 .foot li::before {
   content: "✓";
+
   position: absolute;
   left: 0;
   top: 0;
-  color: #0b9a87;
+
+  color: #16b8a6;
   font-weight: 800;
 }
+
+/* ============================================
+   SCROLL PROGRESS INDICATOR
+   ============================================ */
 
 .progress {
   display: flex;
   flex: 0 0 54px;
   align-items: center;
+
   gap: 18px;
+
   width: 100%;
   min-height: 54px;
+
   padding: 10px var(--pad) 18px;
+
   color: #42655e;
   font-size: 12px;
+
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
 }
 
-.rail { flex: 1; height: 2px; overflow: hidden; background: #dce8e4; }
-.fill { width: 100%; height: 100%; transform: scaleX(.25); transform-origin: left; background: var(--accent); }
+.rail {
+  flex: 1;
 
-/* Matches the white, difference-mode, expanding cursor in the reference HTML. */
+  height: 2px;
+  overflow: hidden;
+
+  background: #dce8e4;
+}
+
+.fill {
+  width: 100%;
+  height: 100%;
+
+  transform: scaleX(0.25);
+  transform-origin: left;
+
+  background: var(--accent);
+}
+
+/* ============================================
+   CUSTOM EXPANDING CURSOR
+   ============================================ */
+
 .cursor {
   position: fixed;
   z-index: 40;
+
   top: 0;
   left: 0;
+
   width: 14px;
   height: 14px;
+
   margin: -7px 0 0 -7px;
+
   border-radius: 50%;
-  background: white;
+
+  background: #ffffff;
   mix-blend-mode: difference;
+
   opacity: 0;
   pointer-events: none;
-  transition: width .35s, height .35s, margin .35s, opacity .2s;
-}
-.cursorVisible { opacity: 1; }
-.cursorLarge { width: 72px; height: 72px; margin: -36px 0 0 -36px; }
 
-/* Short desktop viewports: scale the sculpture and heading down to prevent collision. */
+  transition:
+    width 0.35s,
+    height 0.35s,
+    margin 0.35s,
+    opacity 0.2s;
+}
+
+.cursorVisible {
+  opacity: 1;
+}
+
+.cursorLarge {
+  width: 72px;
+  height: 72px;
+  margin: -36px 0 0 -36px;
+}
+
+/* ============================================
+   SHORT DESKTOP SCREENS
+   ============================================ */
+
 @media (min-width: 900px) and (max-height: 800px) {
-  .media { width: min(50%, 560px); }
-  .cardHeading { font-size: clamp(46px, 5.8vw, 96px); }
-  .foot { gap: 18px; margin-top: 12px; }
-  .foot p { font-size: clamp(14px, 1.1vw, 18px); }
-  .foot li { font-size: clamp(12px, .88vw, 15px); }
-  .foot ul { gap: 6px; }
+  .media {
+    width: min(50%, 560px);
+  }
+
+  .cardHeading {
+    font-size: clamp(46px, 5.8vw, 96px);
+  }
+
+  .foot {
+    gap: 18px;
+    margin-top: 12px;
+  }
+
+  .foot p {
+    font-size: clamp(14px, 1.1vw, 18px);
+  }
+
+  .foot li {
+    font-size: clamp(12px, 0.88vw, 15px);
+  }
+
+  .foot ul {
+    gap: 6px;
+  }
 }
 
 @media (min-width: 900px) and (max-height: 650px) {
-  .media { width: min(43%, 460px); }
-  .cardHeading { font-size: clamp(40px, 5vw, 76px); }
-  .card { padding: 66px 28px 20px; }
-  .number { top: 70px; }
-  .foot p { font-size: 14px; }
-  .foot li { font-size: 12px; }
+  .media {
+    width: min(43%, 460px);
+  }
+
+  .cardHeading {
+    font-size: clamp(40px, 5vw, 76px);
+  }
+
+  .card {
+    padding: 66px 28px 20px;
+  }
+
+  .number {
+    top: 70px;
+  }
+
+  .foot p {
+    font-size: 14px;
+  }
+
+  .foot li {
+    font-size: 12px;
+  }
 }
 
+/* ============================================
+   TABLET
+   ============================================ */
+
 @media (max-width: 899px) {
-  .head { display: grid; gap: 20px; }
-  .headRight { max-width: 600px; }
-  .pin { height: auto !important; }
+  .head {
+    display: grid;
+    gap: 20px;
+  }
+
+  .headRight {
+    max-width: 600px;
+  }
+
+  .pin {
+    height: auto !important;
+  }
+
   .viewport {
     position: relative;
     display: block;
     height: auto;
     overflow: visible;
   }
+
   .track {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
+
     gap: 18px;
+
     width: auto;
     padding-bottom: 36px;
+
     transform: none !important;
     will-change: auto;
   }
+
   .card {
     width: 100%;
     height: auto;
     min-height: 620px;
+
     padding: clamp(24px, 3vw, 44px);
   }
+
   .media {
     width: min(70%, 640px);
     transform: none !important;
   }
+
   .cardHeading {
     font-size: clamp(42px, 6.8vw, 80px);
+
     transform: translate3d(var(--hover-x, 0px), var(--hover-y, 0px), 0);
   }
-  .progress { display: none; }
-  .cardEntering { opacity: 0; translate: 0 40px; transition: opacity 800ms ease, translate 800ms ease; }
-  .cardEntered { opacity: 1; translate: 0 0; }
+
+  .progress {
+    display: none;
+  }
+
+  /* Mobile / tablet entrance animation */
+
+  .cardEntering {
+    opacity: 0;
+    translate: 0 40px;
+
+    transition:
+      opacity 800ms ease,
+      translate 800ms ease;
+  }
+
+  .cardEntered {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
+/* ============================================
+   MOBILE
+   ============================================ */
+
 @media (max-width: 600px) {
-  .head h2 { font-size: clamp(32px, 8.4vw, 48px); }
-  .head { padding-top: 84px; }
+  .head {
+    padding-top: 84px;
+  }
+
+  .head h2 {
+    font-size: clamp(32px, 8.4vw, 48px);
+  }
+
+  .cta {
+    min-height: 50px;
+    padding: 13px 20px;
+    font-size: 14px;
+  }
+
   .card {
     display: grid;
     grid-template-rows: minmax(160px, auto) auto;
+
     min-height: 620px;
     padding: 24px;
   }
-  .number { top: 24px; left: 24px; }
+
+  .number {
+    top: 24px;
+    left: 24px;
+  }
+
   .media {
     align-self: end;
+
     width: 100%;
     max-width: 100%;
+
     margin: 42px 0 20px;
   }
-  .content { align-self: end; }
+
+  .content {
+    align-self: end;
+  }
+
+  /* Keep two-line headings on mobile */
+
   .cardHeading {
     max-width: 100%;
-    font-size: clamp(38px, 9vw, 56px);
-    overflow-wrap: anywhere;
+    font-size: clamp(30px, 7.5vw, 56px);
+    letter-spacing: -0.05em;
+    overflow-wrap: normal;
   }
-  .foot { grid-template-columns: 1fr; gap: 18px; }
-  .foot p { font-size: 15px; }
-  .foot li { font-size: 13px; }
-  .foot ul { border-top: 1px solid rgba(16,58,50,.15); padding-top: 16px; }
+
+  .cardHeadingLine {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .foot {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .foot p {
+    font-size: 15px;
+  }
+
+  .foot li {
+    font-size: 13px;
+  }
+
+  .foot ul {
+    border-top: 1px solid rgba(16, 58, 50, 0.15);
+    padding-top: 16px;
+  }
 }
 
-@media (hover: none), (pointer: coarse) { .cursor { display: none; } }
+/* ============================================
+   TOUCH DEVICES
+   ============================================ */
+
+@media (hover: none), (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
 @media (prefers-reduced-motion: reduce) {
   .cardHeading,
-  .media { transform: none !important; transition: none !important; }
-  .cursor { display: none; }
-  .cardEntering { opacity: 1; translate: none; transition: none; }
-  .pin { height: auto !important; }
-  .viewport { position: relative; height: auto; display: block; overflow: visible; }
-  .track { display: grid; grid-template-columns: 1fr; width: auto; transform: none !important; }
-  .card { width: 100%; min-height: 740px; height: auto; }
-  .progress { display: none; }
+  .media {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .cta,
+  .cta span {
+    transition: none !important;
+  }
+
+  .cta:hover,
+  .cta:hover span {
+    transform: none;
+  }
+
+  .cursor {
+    display: none;
+  }
+
+  .cardEntering {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
+
+  .pin {
+    height: auto !important;
+  }
+
+  .viewport {
+    position: relative;
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+
+  .track {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    width: auto;
+    transform: none !important;
+  }
+
+  .card {
+    width: 100%;
+    min-height: 740px;
+    height: auto;
+  }
+
+  .progress {
+    display: none;
+  }
 }
