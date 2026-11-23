@@ -176,7 +176,9 @@
 /* CARD 02 — Deep Section */
 
 .rms-theme-deep {
-  background: #071f1b;
+  background:
+    radial-gradient(ellipse 65% 70% at 52% 42%, #18584a 0%, transparent 95%),
+    linear-gradient(135deg, #103a32 5%, #071f1b 100%);
   color: #ffffff;
 }
 

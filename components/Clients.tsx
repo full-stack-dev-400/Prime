@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
+
 import styles from "./Clients.module.css";
 
 type ClientType = {
@@ -10,7 +11,10 @@ type ClientType = {
   description: string;
   image: string;
   imageAlt: string;
-  benefits: { title: string; description: string }[];
+  benefits: {
+    title: string;
+    description: string;
+  }[];
 };
 
 const CLIENTS: ClientType[] = [
@@ -20,8 +24,9 @@ const CLIENTS: ClientType[] = [
       "Treasury-grade FX access for banks, corporates and asset managers",
     description:
       "Hedge currency exposure and execute large FX tickets with predictable pricing, documented best execution and reporting your compliance team can rely on.",
-    image: "/images/clients/global-institutions.webp",
-    imageAlt: "Glass-and-metal institutional building with currency symbols",
+    image: "/images/clients/global-institutions-jkv.webp",
+    imageAlt:
+      "Modern institutional trading floor with professional market workstations",
     benefits: [
       {
         title: "Block execution",
@@ -44,9 +49,9 @@ const CLIENTS: ClientType[] = [
     headline: "Low-latency depth for systematic and discretionary strategies",
     description:
       "Run models close to the market at LD4, with full depth of book and execution logic that stays consistent from backtest to live trading.",
-    image: "/images/clients/hedge-funds.webp",
+    image: "/images/clients/jkv-hedge-funds.webp",
     imageAlt:
-      "Silver and emerald trading workstation with translucent financial charts",
+      "Hedge fund investment professionals reviewing portfolio strategy",
     benefits: [
       {
         title: "Co-located access",
@@ -67,9 +72,9 @@ const CLIENTS: ClientType[] = [
     headline: "Resilient market-making liquidity for trading venues",
     description:
       "Keep your order books two-sided and tight with continuous quoting, structured liquidity agreements and failover that holds when volatility spikes.",
-    image: "/images/clients/exchanges.webp",
+    image: "/images/clients/jkv-exchange.webp",
     imageAlt:
-      "Layered mint glass exchange infrastructure with illuminated candlestick chart",
+      "Enterprise financial exchange connectivity and server infrastructure",
     benefits: [
       {
         title: "Continuous quoting",
@@ -90,9 +95,9 @@ const CLIENTS: ClientType[] = [
     headline: "Liquidity, plugins and risk control in one connection",
     description:
       "Connect your MT4/MT5 servers to aggregated pricing, then manage A-book, B-book and hybrid flow from a dashboard included with your package.",
-    image: "/images/clients/brokers.webp",
+    image: "/images/clients/jkv-brokers.webp",
     imageAlt:
-      "JKV-branded trading smartphone showing currency pricing and charts",
+      "Professional brokerage dealing desk with institutional trading monitors",
     benefits: [
       {
         title: "Bridge-ready",
@@ -113,8 +118,9 @@ const CLIENTS: ClientType[] = [
     headline: "Institutional pricing for high-volume individual traders",
     description:
       "Algorithmic and high-frequency traders get direct access to the same aggregated book and execution standards as our institutional clients.",
-    image: "/images/clients/professional-traders.webp",
-    imageAlt: "Silver laptop with a JKV-branded financial trading terminal",
+    image: "/images/clients/jkv-professional-ttraders.webp",
+    imageAlt:
+      "Professional forex trader working at a multi-monitor trading workstation",
     benefits: [
       {
         title: "Raw pricing",
@@ -134,13 +140,13 @@ const CLIENTS: ClientType[] = [
 
 export default function Clients() {
   const [active, setActive] = useState(0);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
   const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
+
   const current = CLIENTS[active];
 
   function selectClient(index: number) {
     setActive((index + CLIENTS.length) % CLIENTS.length);
-    setTilt({ x: 0, y: 0 });
   }
 
   function onTabKeyDown(
@@ -148,23 +154,30 @@ export default function Clients() {
     index: number,
   ) {
     let next: number | undefined;
-    if (event.key === "ArrowRight") next = (index + 1) % CLIENTS.length;
-    if (event.key === "ArrowLeft")
-      next = (index - 1 + CLIENTS.length) % CLIENTS.length;
-    if (event.key === "Home") next = 0;
-    if (event.key === "End") next = CLIENTS.length - 1;
-    if (next === undefined) return;
-    event.preventDefault();
-    selectClient(next);
-    tabsRef.current[next]?.focus();
-  }
 
-  function onPointerMove(event: PointerEvent<HTMLDivElement>) {
-    if (event.pointerType === "touch") return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: -y * 3, y: x * 4 });
+    if (event.key === "ArrowRight") {
+      next = (index + 1) % CLIENTS.length;
+    }
+
+    if (event.key === "ArrowLeft") {
+      next = (index - 1 + CLIENTS.length) % CLIENTS.length;
+    }
+
+    if (event.key === "Home") {
+      next = 0;
+    }
+
+    if (event.key === "End") {
+      next = CLIENTS.length - 1;
+    }
+
+    if (next === undefined) return;
+
+    event.preventDefault();
+
+    selectClient(next);
+
+    tabsRef.current[next]?.focus();
   }
 
   return (
@@ -174,18 +187,23 @@ export default function Clients() {
       aria-labelledby="clients-heading"
     >
       <div className={styles.container}>
+        {/* SECTION HEADER */}
+
         <header className={styles.header}>
           <p className={styles.eyebrow}>Who we serve</p>
 
           <h2 className={styles.heading} id="clients-heading">
             Solutions built around <em>how you trade.</em>
           </h2>
+
           <p className={styles.intro}>
             Every client type needs something different from a prime provider.
             We set up liquidity, connectivity and risk to match your business
             model.
           </p>
         </header>
+
+        {/* CLIENT NAVIGATION TABS */}
 
         <div
           className={styles.tabs}
@@ -198,7 +216,9 @@ export default function Clients() {
               ref={(element) => {
                 tabsRef.current[index] = element;
               }}
-              className={`${styles.tab} ${active === index ? styles.tabActive : ""}`}
+              className={`${styles.tab} ${
+                active === index ? styles.tabActive : ""
+              }`}
               id={`client-tab-${index}`}
               type="button"
               role="tab"
@@ -211,13 +231,17 @@ export default function Clients() {
               <span className={styles.tabNumber}>
                 {String(index + 1).padStart(2, "0")}
               </span>
+
               <span>{client.name}</span>
+
               <span className={styles.tabArrow} aria-hidden="true">
                 ↗
               </span>
             </button>
           ))}
         </div>
+
+        {/* MAIN CLIENT SHOWCASE */}
 
         <div
           className={styles.showcase}
@@ -226,15 +250,24 @@ export default function Clients() {
           aria-labelledby={`client-tab-${active}`}
           tabIndex={0}
         >
+          {/* LEFT CONTENT */}
+
           <div className={styles.copy} key={`copy-${active}`}>
             <p className={styles.counter}>
               <span>{String(active + 1).padStart(2, "0")}</span>
+
               <span className={styles.counterDivider}>/</span>
-              <span>05</span>
+
+              <span>{String(CLIENTS.length).padStart(2, "0")}</span>
+
               <span className={styles.clientName}>{current.name}</span>
             </p>
+
             <h3 className={styles.title}>{current.headline}</h3>
+
             <p className={styles.description}>{current.description}</p>
+
+            {/* CLIENT BENEFITS */}
 
             <ul className={styles.benefits}>
               {current.benefits.map((benefit) => (
@@ -242,8 +275,10 @@ export default function Clients() {
                   <span className={styles.benefitCheck} aria-hidden="true">
                     ✓
                   </span>
+
                   <span>
                     <strong>{benefit.title}</strong>
+
                     <span className={styles.benefitDescription}>
                       {benefit.description}
                     </span>
@@ -253,38 +288,35 @@ export default function Clients() {
             </ul>
           </div>
 
-          <div
-            className={styles.visual}
-            onPointerMove={onPointerMove}
-            onPointerLeave={() => setTilt({ x: 0, y: 0 })}
-          >
-            <div className={styles.visualHalo} aria-hidden="true" />
-            <div
-              key={`image-${active}`}
-              className={styles.imageStage}
-              style={{
-                transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-              }}
-            >
+          {/* RIGHT FULL COVER IMAGE */}
+
+          <div className={styles.visual}>
+            <div key={`image-${active}`} className={styles.imageStage}>
               <Image
                 src={current.image}
                 alt={current.imageAlt}
                 fill
-                sizes="(min-width: 1100px) 44vw, (min-width: 740px) 48vw, 94vw"
+                sizes="(min-width: 1100px) 50vw, 100vw"
                 className={styles.image}
                 priority={active === 0}
-                quality={88}
+                quality={85}
               />
             </div>
+
+            {/* IMAGE CORNER LABEL */}
+
             <div className={styles.visualLabel} aria-hidden="true">
-              <span className={styles.visualDot} /> JKV GLOBAL /{" "}
-              {String(active + 1).padStart(2, "0")}
+              <span className={styles.visualDot} />
+              JKV PRIME / {String(active + 1).padStart(2, "0")}
             </div>
           </div>
         </div>
 
+        {/* BOTTOM CONTROLS */}
+
         <div className={styles.controls}>
           <p className={styles.controlsHint}>Explore our client solutions</p>
+
           <div className={styles.pagination} aria-label="Client navigation">
             <button
               type="button"
@@ -294,9 +326,12 @@ export default function Clients() {
             >
               ←
             </button>
+
             <span className={styles.pageCount}>
-              {String(active + 1).padStart(2, "0")} <span>/ 05</span>
+              {String(active + 1).padStart(2, "0")}{" "}
+              <span>/ {String(CLIENTS.length).padStart(2, "0")}</span>
             </span>
+
             <button
               type="button"
               className={styles.navButton}

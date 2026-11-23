@@ -205,7 +205,7 @@ export default function Footer() {
         <div className={styles.container}>
           <div className={styles.bottomInner}>
             <p className={styles.copyright}>
-              © {new Date().getFullYear()} JKV Global. All rights reserved.
+              © {new Date().getFullYear()} JKV Prime. All rights reserved.
             </p>
 
             <p className={styles.disclaimer}>
