@@ -20,11 +20,22 @@
   --prime-accent-hover: #84efcb;
   --prime-accent-deep: #16b8a6;
 
-  /* Typography */
+  /* Typography — Official JKV Prime brand font */
+
   --prime-heading: #f4faf7;
   --prime-body: #e6f6f2;
   --prime-muted: #a3b6aa;
-  --prime-font: inherit;
+
+  --font-inter: "Inter Variable", "Segoe UI", Arial, sans-serif;
+
+  /* Main website typography */
+  --prime-font: var(--font-inter);
+
+  /* Compatibility with existing components */
+  --font-manrope: var(--font-inter);
+
+  /* Monospaced labels and technical data */
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
 
   /* Buttons */
   --prime-button-bg: #65e0ba;
@@ -58,6 +69,10 @@
   body {
     background: var(--prime-bg);
     color: var(--prime-body);
+
+    font-family: var(--prime-font);
+    font-weight: 400;
+
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -451,11 +466,6 @@
   .btn-ghost:hover {
     transform: none;
   }
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 90px;
 }
 
 @media (max-width: 760px) {

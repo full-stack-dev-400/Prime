@@ -518,13 +518,25 @@ export default function PrimePackagesSection() {
           pointer-events: none;
         }
 
-        .pps-card-featured {
-          border-color: #16B8A6;
-          background: #16B8A6;
-          color: #ffffff;
-          box-shadow: 0 30px 100px rgba(11, 22, 48, 0.16);
-          transform: translateY(-8px);
-        }
+ 
+.pps-card-featured {
+  border-color: #286052;
+  background:
+    radial-gradient(
+      ellipse 65% 70% at 52% 42%,
+      #18584a 0%,
+      transparent 95%
+    ),
+    linear-gradient(
+      135deg,
+      #103a32 5%,
+      #071f1b 100%
+    );
+  color: #ffffff;
+  box-shadow: 0 30px 100px rgba(7, 31, 27, 0.22);
+  transform: translateY(-8px);
+}
+
 
         .pps-card-featured::before {
           background: none;
@@ -540,8 +552,8 @@ export default function PrimePackagesSection() {
           justify-content: center;
           padding: 8px 12px;
           border-radius: 999px;
-          background: #071F1B;
-          color: #FFFFFF;
+    background: #16B8A6;
+color: #071F1B;
           font-size: 11px;
           font-weight: 900;
           letter-spacing: 0.08em;

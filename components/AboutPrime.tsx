@@ -9,7 +9,7 @@ const highlights = [
     kicker: "REGULATORY FOOTPRINT",
     heading: "FSC",
     description: "Group licensed in Mauritius",
-    image: "/images/jkv-about/fsc-mauritius-img.webp",
+    image: "/images/jkv-about/jkv-prime-fsc-03.webp",
     alt: "Illustration of a Mauritius flag, island scenery, and an FSC-themed glass plaque",
     className: styles.fsc,
     imagePosition: "50% 50%",
@@ -20,7 +20,7 @@ const highlights = [
     kicker: "LONDON INFRASTRUCTURE",
     heading: "LD4 · LD5",
     description: "Equinix London presence",
-    image: "/images/jkv-about/equinix-ld4-ld5-img.webp",
+    image: "/images/jkv-about/jkv-prime-ld4-ld5-02.webp",
     alt: "Concept illustration of LD4 and LD5 server racks and London connectivity",
     className: styles.infrastructure,
     imagePosition: "50% 50%",
@@ -31,7 +31,7 @@ const highlights = [
     kicker: "SCALED TO YOUR FLOW",
     heading: "3 prime packages",
     description: "Volume-based prime packages",
-    image: "/images/jkv-about/prime-packages-img.webp",
+    image: "/images/jkv-about/jkv-prime-packages-01.webp",
     alt: "Starter, Advanced and Pro prime service tiers displayed as three glass cards",
     className: styles.packages,
     imagePosition: "50% 50%",
@@ -42,7 +42,7 @@ const highlights = [
     kicker: "PRIME DESK & SUPPORT",
     heading: "24/5",
     description: "Prime desk & network operations",
-    image: "/images/jkv-about/prime-desk-operations-img.webp",
+    image: "/images/jkv-about/prime-desk-operations-04.webp",
     alt: "Concept illustration of an institutional prime desk and network operations room",
     className: styles.operations,
     imagePosition: "50% 50%",
@@ -76,12 +76,12 @@ export default function AboutPrime() {
             <span className={styles.eyebrow}>ABOUT US / JKV PRIME</span>
             <h2 id="about-prime-title" className={styles.title}>
               The institutional <br className={styles.desktopBreak} />
-              arm of <span>JKV Global.</span>
+              arm of <span>JKV PRIME.</span>
             </h2>
           </div>
           <div className={styles.introBody}>
             <p>
-              JKV Prime brings JKV Global&apos;s market infrastructure to
+              JKV Prime brings JKV PRIME&apos;s market infrastructure to
               professional counterparties. We offer B2B liquidity, connectivity
               and risk technology to brokers, funds and venues that need
               dependable execution and a partner who understands their business.

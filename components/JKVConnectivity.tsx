@@ -177,7 +177,14 @@ function EndpointCard({ x, y, title, lines, icon, mintId, glowId }: CardProps) {
         stroke="#9edbd0"
         strokeWidth="1"
       />
-      <rect x={x + 13} y={y + 14} width="67" height="67" rx="15" fill="#D2F1EA" />
+      <rect
+        x={x + 13}
+        y={y + 14}
+        width="67"
+        height="67"
+        rx="15"
+        fill="#D2F1EA"
+      />
       <Icon name={icon} x={x + 29} y={y + 29} size={36} />
       <text x={x + 94} y={y + 42} className={styles.cardTitle}>
         {title}
@@ -205,8 +212,20 @@ function ColumnHeader({ x, width, number, label, pillId }: ColumnHeaderProps) {
   return (
     <g>
       <rect x={x} y="146" width={width} height="41" rx="13" fill="#F0FAF7" />
-      <rect x={x + 12} y="150" width="51" height="34" rx="9" fill={`url(#${pillId})`} />
-      <text x={x + 37.5} y="173" textAnchor="middle" className={styles.columnNumber}>
+      <rect
+        x={x + 12}
+        y="150"
+        width="51"
+        height="34"
+        rx="9"
+        fill={`url(#${pillId})`}
+      />
+      <text
+        x={x + 37.5}
+        y="173"
+        textAnchor="middle"
+        className={styles.columnNumber}
+      >
         {number}
       </text>
       <text x={x + 78} y="174" className={styles.columnTitle}>
@@ -251,7 +270,9 @@ export default function JKVConnectivity({
       className={`${styles.wrapper} ${className}`.trim()}
     >
       <div className={styles.viewport}>
-        <div className={`${styles.canvas} ${animated ? styles.animated : styles.static}`}>
+        <div
+          className={`${styles.canvas} ${animated ? styles.animated : styles.static}`}
+        >
           {/* Fixed, photorealistic laptop hardware, provided with this component. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -306,7 +327,7 @@ export default function JKVConnectivity({
 
               {/* Brand: extracted unchanged from the supplied JKV reference. */}
               <image
-                href="/images/jkv-connectivity-logo.png"
+                href="/images/JKV_Prime_Logo.webp"
                 x="25"
                 y="9"
                 width="264"
@@ -317,120 +338,435 @@ export default function JKVConnectivity({
               <text x="335" y="74" className={styles.mainTitle}>
                 CONNECTIVITY TOPOLOGY / LONDON
               </text>
-              <rect x="970" y="42" width="210" height="42" rx="14" fill="#D9F5ED" />
+              <rect
+                x="970"
+                y="42"
+                width="210"
+                height="42"
+                rx="14"
+                fill="#D9F5ED"
+              />
               <Icon name="lock" x={985} y={52} size={22} color="#065642" />
               <text x="1025" y="69" className={styles.secureBadge}>
                 Protected routing
               </text>
 
-              <ColumnHeader x={20} width={315} number="01" label="PRICE SOURCES" pillId={pillId} />
-              <ColumnHeader x={433} width={353} number="02" label="JKV PRIME CORE" pillId={pillId} />
-              <ColumnHeader x={877} width={315} number="03" label="CLIENT ENDPOINTS" pillId={pillId} />
+              <ColumnHeader
+                x={20}
+                width={315}
+                number="01"
+                label="PRICE SOURCES"
+                pillId={pillId}
+              />
+              <ColumnHeader
+                x={433}
+                width={353}
+                number="02"
+                label="JKV PRIME CORE"
+                pillId={pillId}
+              />
+              <ColumnHeader
+                x={877}
+                width={315}
+                number="03"
+                label="CLIENT ENDPOINTS"
+                pillId={pillId}
+              />
 
               {/* Glow sits behind the endpoint cards; all connections stay inside screen. */}
               <g className={styles.connectors}>
                 {routes.map(({ d, delay }, i) => (
                   <g key={`route-${i}`}>
-                    <path d={d} fill="none" stroke="#16B8A6" strokeWidth="6" opacity=".13" filter={`url(#${glowId})`} />
-                    <path d={d} fill="none" stroke="#16B8A6" strokeWidth="2.7" strokeLinecap="round" />
-                    <path d={d} fill="none" className={styles.travelLine} stroke="#D0FFF3" strokeWidth="1.4" strokeDasharray="4 20" />
+                    <path
+                      d={d}
+                      fill="none"
+                      stroke="#16B8A6"
+                      strokeWidth="6"
+                      opacity=".13"
+                      filter={`url(#${glowId})`}
+                    />
+                    <path
+                      d={d}
+                      fill="none"
+                      stroke="#16B8A6"
+                      strokeWidth="2.7"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d={d}
+                      fill="none"
+                      className={styles.travelLine}
+                      stroke="#D0FFF3"
+                      strokeWidth="1.4"
+                      strokeDasharray="4 20"
+                    />
                     {animated && (
                       <circle r="3.1" fill="#ADFFEB" filter={`url(#${glowId})`}>
-                        <animateMotion path={d} dur="3.7s" begin={delay} repeatCount="indefinite" />
+                        <animateMotion
+                          path={d}
+                          dur="3.7s"
+                          begin={delay}
+                          repeatCount="indefinite"
+                        />
                       </circle>
                     )}
                   </g>
                 ))}
                 {/* Direction chevrons adjacent to active core. */}
-                <path d="m392 312 8 8-8 8 M402 312l8 8-8 8" className={styles.chevrons} />
-                <path d="m805 312 8 8-8 8 M815 312l8 8-8 8" className={styles.chevrons} />
+                <path
+                  d="m392 312 8 8-8 8 M402 312l8 8-8 8"
+                  className={styles.chevrons}
+                />
+                <path
+                  d="m805 312 8 8-8 8 M815 312l8 8-8 8"
+                  className={styles.chevrons}
+                />
               </g>
 
               {/* Sources */}
-              <EndpointCard x={20} y={215} title="Tier-1 banks" lines={["Primary price contributors"]} icon="bank" mintId={mintId} glowId={glowId} />
-              <EndpointCard x={20} y={339} title="Non-bank LPs" lines={["Supplemental depth &", "spread competition"]} icon="layers" mintId={mintId} glowId={glowId} />
-              <EndpointCard x={20} y={464} title="Aggregated streams" lines={["Multi-source"]} icon="network" mintId={mintId} glowId={glowId} />
+              <EndpointCard
+                x={20}
+                y={215}
+                title="Tier-1 banks"
+                lines={["Primary price contributors"]}
+                icon="bank"
+                mintId={mintId}
+                glowId={glowId}
+              />
+              <EndpointCard
+                x={20}
+                y={339}
+                title="Non-bank LPs"
+                lines={["Supplemental depth &", "spread competition"]}
+                icon="layers"
+                mintId={mintId}
+                glowId={glowId}
+              />
+              <EndpointCard
+                x={20}
+                y={464}
+                title="Aggregated streams"
+                lines={["Multi-source"]}
+                icon="network"
+                mintId={mintId}
+                glowId={glowId}
+              />
 
               {/* Client endpoints */}
-              <EndpointCard x={876} y={215} title="FIX 4.4" lines={["Streaming prices · orders ·", "drop copies"]} icon="code" mintId={mintId} glowId={glowId} />
-              <EndpointCard x={876} y={339} title="MT4 / MT5 bridges" lines={["Bridge connectivity for", "venue execution"]} icon="candles" mintId={mintId} glowId={glowId} />
-              <EndpointCard x={876} y={464} title="Risk dashboard" lines={["Live monitoring and", "control visibility"]} icon="monitor" mintId={mintId} glowId={glowId} />
+              <EndpointCard
+                x={876}
+                y={215}
+                title="FIX 4.4"
+                lines={["Streaming prices · orders ·", "drop copies"]}
+                icon="code"
+                mintId={mintId}
+                glowId={glowId}
+              />
+              <EndpointCard
+                x={876}
+                y={339}
+                title="MT4 / MT5 bridges"
+                lines={["Bridge connectivity for", "venue execution"]}
+                icon="candles"
+                mintId={mintId}
+                glowId={glowId}
+              />
+              <EndpointCard
+                x={876}
+                y={464}
+                title="Risk dashboard"
+                lines={["Live monitoring and", "control visibility"]}
+                icon="monitor"
+                mintId={mintId}
+                glowId={glowId}
+              />
 
               {/* Core: primary LD4 engine */}
               <g className={styles.coreCard}>
-                <rect x="416" y="216" width="370" height="155" rx="18" fill="none" stroke="#16B8A6" strokeWidth="5" opacity=".65" filter={`url(#${glowId})`} className={styles.primaryAura} />
-                <rect x="420" y="220" width="363" height="147" rx="16" fill={`url(#${coreId})`} stroke="#47FAD1" strokeWidth="2" />
-                <rect x="552" y="235" width="102" height="27" rx="13.5" fill="#CEFFF0" />
-                <text x="603" y="254" textAnchor="middle" className={styles.primaryBadge}>PRIMARY</text>
+                <rect
+                  x="416"
+                  y="216"
+                  width="370"
+                  height="155"
+                  rx="18"
+                  fill="none"
+                  stroke="#16B8A6"
+                  strokeWidth="5"
+                  opacity=".65"
+                  filter={`url(#${glowId})`}
+                  className={styles.primaryAura}
+                />
+                <rect
+                  x="420"
+                  y="220"
+                  width="363"
+                  height="147"
+                  rx="16"
+                  fill={`url(#${coreId})`}
+                  stroke="#47FAD1"
+                  strokeWidth="2"
+                />
+                <rect
+                  x="552"
+                  y="235"
+                  width="102"
+                  height="27"
+                  rx="13.5"
+                  fill="#CEFFF0"
+                />
+                <text
+                  x="603"
+                  y="254"
+                  textAnchor="middle"
+                  className={styles.primaryBadge}
+                >
+                  PRIMARY
+                </text>
                 <g transform="translate(455 253)">
-                  <path d="m0 14 36-16 38 15-37 16Z" fill="#8BEBD4" stroke="#C8FFF0" strokeWidth="1.5" />
-                  <path d="m0 14 37 15v12L0 26Z" fill="#0A9D80" stroke="#B0FFE7" strokeWidth="1.2" />
-                  <path d="m37 29 37-16v13L37 41Z" fill="#0A6D59" stroke="#99EED9" strokeWidth="1.2" />
-                  <path d="m0 29 37 15 37-15v15L37 60 0 44Z" fill="#17A98A" stroke="#8CEAD1" strokeWidth="1.2" />
-                  <path d="m0 46 37 15 37-15v14L37 77 0 60Z" fill="#087D68" stroke="#8CEAD1" strokeWidth="1.2" />
+                  <path
+                    d="m0 14 36-16 38 15-37 16Z"
+                    fill="#8BEBD4"
+                    stroke="#C8FFF0"
+                    strokeWidth="1.5"
+                  />
+                  <path
+                    d="m0 14 37 15v12L0 26Z"
+                    fill="#0A9D80"
+                    stroke="#B0FFE7"
+                    strokeWidth="1.2"
+                  />
+                  <path
+                    d="m37 29 37-16v13L37 41Z"
+                    fill="#0A6D59"
+                    stroke="#99EED9"
+                    strokeWidth="1.2"
+                  />
+                  <path
+                    d="m0 29 37 15 37-15v15L37 60 0 44Z"
+                    fill="#17A98A"
+                    stroke="#8CEAD1"
+                    strokeWidth="1.2"
+                  />
+                  <path
+                    d="m0 46 37 15 37-15v14L37 77 0 60Z"
+                    fill="#087D68"
+                    stroke="#8CEAD1"
+                    strokeWidth="1.2"
+                  />
                   <path d="M37 44v16m0 1v16" stroke="#B6FFE9" strokeWidth="1" />
                   <circle cx="65" cy="36" r="2.2" fill="#D9FFF1" />
                   <circle cx="65" cy="53" r="2.2" fill="#D9FFF1" />
                   <circle cx="65" cy="69" r="2.2" fill="#D9FFF1" />
                 </g>
-                <text x="551" y="311" className={styles.ld4}>LD4</text>
-                <text x="552" y="340" className={styles.coreCaption}>Pricing engine · FIX sessions</text>
+                <text x="551" y="311" className={styles.ld4}>
+                  LD4
+                </text>
+                <text x="552" y="340" className={styles.coreCaption}>
+                  Pricing engine · FIX sessions
+                </text>
               </g>
 
               {/* Explicit operational failover and replicated state */}
               <g className={styles.failover}>
-                <path d="M602 367 V463" fill="none" stroke="#18BDA5" strokeWidth="3" />
-                <path d="M602 369 V463" className={styles.failoverTravel} fill="none" stroke="#C8FFF1" strokeWidth="1.6" strokeDasharray="5 16" />
-                <circle cx="602" cy="367" r="9" fill="#16B8A6" opacity=".25" filter={`url(#${glowId})`} />
-                <circle cx="602" cy="367" r="5" fill="#FFFFFF" stroke="#18BDA5" strokeWidth="3" />
-                <circle cx="602" cy="463" r="9" fill="#16B8A6" opacity=".35" filter={`url(#${glowId})`} />
-                <circle cx="602" cy="463" r="5" fill="#FFFFFF" stroke="#18BDA5" strokeWidth="3" />
-                <rect x="461" y="398" width="282" height="27" rx="13.5" fill="#FFFFFF" stroke="#1CB9A2" strokeWidth="1.1" />
-                <text x="602" y="416" className={styles.failoverLabel} textAnchor="middle">Session failover + replicated state</text>
+                <path
+                  d="M602 367 V463"
+                  fill="none"
+                  stroke="#18BDA5"
+                  strokeWidth="3"
+                />
+                <path
+                  d="M602 369 V463"
+                  className={styles.failoverTravel}
+                  fill="none"
+                  stroke="#C8FFF1"
+                  strokeWidth="1.6"
+                  strokeDasharray="5 16"
+                />
+                <circle
+                  cx="602"
+                  cy="367"
+                  r="9"
+                  fill="#16B8A6"
+                  opacity=".25"
+                  filter={`url(#${glowId})`}
+                />
+                <circle
+                  cx="602"
+                  cy="367"
+                  r="5"
+                  fill="#FFFFFF"
+                  stroke="#18BDA5"
+                  strokeWidth="3"
+                />
+                <circle
+                  cx="602"
+                  cy="463"
+                  r="9"
+                  fill="#16B8A6"
+                  opacity=".35"
+                  filter={`url(#${glowId})`}
+                />
+                <circle
+                  cx="602"
+                  cy="463"
+                  r="5"
+                  fill="#FFFFFF"
+                  stroke="#18BDA5"
+                  strokeWidth="3"
+                />
+                <rect
+                  x="461"
+                  y="398"
+                  width="282"
+                  height="27"
+                  rx="13.5"
+                  fill="#FFFFFF"
+                  stroke="#1CB9A2"
+                  strokeWidth="1.1"
+                />
+                <text
+                  x="602"
+                  y="416"
+                  className={styles.failoverLabel}
+                  textAnchor="middle"
+                >
+                  Session failover + replicated state
+                </text>
               </g>
 
               {/* Core: LD5 hot standby */}
               <g className={styles.standbyCard}>
-                <rect x="418" y="463" width="370" height="111" rx="15" fill={`url(#${haloId})`} stroke="#9DDDCF" strokeWidth="1.2" />
+                <rect
+                  x="418"
+                  y="463"
+                  width="370"
+                  height="111"
+                  rx="15"
+                  fill={`url(#${haloId})`}
+                  stroke="#9DDDCF"
+                  strokeWidth="1.2"
+                />
                 <g transform="translate(451 488) scale(.84)">
-                  <path d="m0 14 36-16 38 15-37 16Z" fill="#9DEEDD" stroke="#CAFFF2" strokeWidth="1.5" />
-                  <path d="m0 14 37 15 37-16v14L37 44 0 27Z" fill="#6DD0B7" stroke="#B9FFEE" />
-                  <path d="m0 31 37 15 37-15v14L37 62 0 45Z" fill="#47B79D" stroke="#A6F2DF" />
-                  <path d="m0 48 37 15 37-15v14L37 79 0 62Z" fill="#31967F" stroke="#9DEED8" />
+                  <path
+                    d="m0 14 36-16 38 15-37 16Z"
+                    fill="#9DEEDD"
+                    stroke="#CAFFF2"
+                    strokeWidth="1.5"
+                  />
+                  <path
+                    d="m0 14 37 15 37-16v14L37 44 0 27Z"
+                    fill="#6DD0B7"
+                    stroke="#B9FFEE"
+                  />
+                  <path
+                    d="m0 31 37 15 37-15v14L37 62 0 45Z"
+                    fill="#47B79D"
+                    stroke="#A6F2DF"
+                  />
+                  <path
+                    d="m0 48 37 15 37-15v14L37 79 0 62Z"
+                    fill="#31967F"
+                    stroke="#9DEED8"
+                  />
                   <path d="M37 30v47" stroke="#B5FFEC" strokeWidth="1.3" />
                   <circle cx="64" cy="37" r="2.1" fill="#E7FFF8" />
                   <circle cx="64" cy="55" r="2.1" fill="#E7FFF8" />
                   <circle cx="64" cy="71" r="2.1" fill="#E7FFF8" />
                 </g>
-                <rect x="539" y="475" width="141" height="27" rx="13.5" fill="#C8F7E9" stroke="#89DCC7" strokeWidth="1" />
-                <text x="609.5" y="494" textAnchor="middle" className={styles.standbyBadge}>HOT STANDBY</text>
-                <text x="539" y="538" className={styles.ld5}>LD5</text>
-                <text x="539" y="558" className={styles.standbyCaption}>Redundant engine · database replica</text>
+                <rect
+                  x="539"
+                  y="475"
+                  width="141"
+                  height="27"
+                  rx="13.5"
+                  fill="#C8F7E9"
+                  stroke="#89DCC7"
+                  strokeWidth="1"
+                />
+                <text
+                  x="609.5"
+                  y="494"
+                  textAnchor="middle"
+                  className={styles.standbyBadge}
+                >
+                  HOT STANDBY
+                </text>
+                <text x="539" y="538" className={styles.ld5}>
+                  LD5
+                </text>
+                <text x="539" y="558" className={styles.standbyCaption}>
+                  Redundant engine · database replica
+                </text>
               </g>
 
               {/* Small luminous socket nodes terminate at the cards. */}
               {[263, 387, 512].map((cy) => (
                 <g key={`leftnode-${cy}`}>
-                  <circle cx="332" cy={cy} r="8" fill="#33E9C0" opacity=".22" filter={`url(#${glowId})`} />
-                  <circle cx="332" cy={cy} r="5.7" fill="#FFFFFF" stroke="#16D8B4" strokeWidth="2.6" />
+                  <circle
+                    cx="332"
+                    cy={cy}
+                    r="8"
+                    fill="#33E9C0"
+                    opacity=".22"
+                    filter={`url(#${glowId})`}
+                  />
+                  <circle
+                    cx="332"
+                    cy={cy}
+                    r="5.7"
+                    fill="#FFFFFF"
+                    stroke="#16D8B4"
+                    strokeWidth="2.6"
+                  />
                 </g>
               ))}
               {[263, 387, 512].map((cy) => (
                 <g key={`rightnode-${cy}`}>
-                  <circle cx="876" cy={cy} r="8" fill="#33E9C0" opacity=".22" filter={`url(#${glowId})`} />
-                  <circle cx="876" cy={cy} r="5.7" fill="#FFFFFF" stroke="#16D8B4" strokeWidth="2.6" />
+                  <circle
+                    cx="876"
+                    cy={cy}
+                    r="8"
+                    fill="#33E9C0"
+                    opacity=".22"
+                    filter={`url(#${glowId})`}
+                  />
+                  <circle
+                    cx="876"
+                    cy={cy}
+                    r="5.7"
+                    fill="#FFFFFF"
+                    stroke="#16D8B4"
+                    strokeWidth="2.6"
+                  />
                 </g>
               ))}
 
               {/* Capability ribbon */}
-              <rect x="29" y="604" width="1152" height="59" rx="16" fill="#EAF8F4" />
-              <path d="M455 621 V650 M865 621 V650" stroke="#79BBAE" strokeWidth="1.3" />
+              <rect
+                x="29"
+                y="604"
+                width="1152"
+                height="59"
+                rx="16"
+                fill="#EAF8F4"
+              />
+              <path
+                d="M455 621 V650 M865 621 V650"
+                stroke="#79BBAE"
+                strokeWidth="1.3"
+              />
               <Icon name="link" x={86} y={619} size={32} color="#00745C" />
-              <text x="140" y="640" className={styles.statusText}>Cross-connect / VPN onboarding</text>
+              <text x="140" y="640" className={styles.statusText}>
+                Cross-connect / VPN onboarding
+              </text>
               <Icon name="layers" x={510} y={616} size={35} color="#00745C" />
-              <text x="564" y="640" className={styles.statusText}>Automatic session resilience</text>
+              <text x="564" y="640" className={styles.statusText}>
+                Automatic session resilience
+              </text>
               <Icon name="headset" x={914} y={617} size={34} color="#00745C" />
-              <text x="967" y="640" className={styles.statusText}>24/5 monitoring</text>
+              <text x="967" y="640" className={styles.statusText}>
+                24/5 monitoring
+              </text>
             </g>
           </svg>
         </div>
