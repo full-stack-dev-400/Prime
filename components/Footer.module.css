@@ -614,3 +614,81 @@
     transform: none;
   }
 }
+
+/* =========================================
+   LEGAL AND REGULATORY DISCLOSURES
+========================================= */
+
+.legalSection {
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.legalInner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px 0;
+}
+
+.legalBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legalHeading {
+  margin: 0 0 2px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.legalBlock p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.72);
+  overflow-wrap: break-word;
+}
+
+.legalBlock strong {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* =========================================
+   RESPONSIVE LEGAL SECTION
+========================================= */
+
+@media (max-width: 768px) {
+  .legalInner {
+    padding: 26px 0;
+    gap: 22px;
+  }
+
+  .legalHeading {
+    font-size: 12px;
+  }
+
+  .legalBlock p {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .bottomInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .legalInner {
+    padding: 22px 0;
+    gap: 20px;
+  }
+}

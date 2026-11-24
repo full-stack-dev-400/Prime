@@ -76,11 +76,6 @@ export default function Footer() {
               />
             </div>
 
-            <p className={styles.brandDescription}>
-              Global markets. Local insight. Prime liquidity for brokers, funds
-              and exchanges.
-            </p>
-
             <div className={styles.brandLine} />
           </div>
 
@@ -200,6 +195,70 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* LEGAL AND REGULATORY DISCLOSURES */}
+      <div className={styles.legalSection}>
+        <div className={styles.container}>
+          <div className={styles.legalInner}>
+            {/* RISK WARNING */}
+            <section
+              className={styles.legalBlock}
+              aria-labelledby="footer-risk-warning"
+            >
+              <h3 id="footer-risk-warning" className={styles.legalHeading}>
+                RISK WARNING
+              </h3>
+
+              <p>
+                Contracts for Difference (CFDs), Forex and other leveraged
+                financial instruments are complex products that carry a high
+                level of risk and may not be suitable for all investors. Trading
+                on margin can result in substantial losses, including losses
+                exceeding your initial investment.
+              </p>
+
+              <p>
+                JKV Prime is a brand and business division of JKV Global Capital
+                Market Services Limited, a company incorporated in Mauritius and
+                authorised and regulated by the Financial Services Commission
+                (FSC) of Mauritius under Licence No. GB23201820.
+              </p>
+
+              <p>
+                <strong>Registered Office:</strong> The Gardens, Ground Floor,
+                Bagatelle Office Park, Bagatelle, Moka 80832, Mauritius.
+              </p>
+            </section>
+
+            {/* REGIONAL RESTRICTIONS */}
+            <section
+              className={styles.legalBlock}
+              aria-labelledby="footer-regional-restrictions"
+            >
+              <h3
+                id="footer-regional-restrictions"
+                className={styles.legalHeading}
+              >
+                REGIONAL RESTRICTIONS
+              </h3>
+
+              <p>
+                The information and services available on this website are not
+                directed at, or intended for distribution to or use by,
+                residents of the United Arab Emirates, the United States of
+                America, Japan, Cuba, Iran, North Korea, Sudan, Myanmar, Iraq,
+                or any other jurisdiction where such distribution, access or use
+                would be contrary to applicable local laws or regulations.
+              </p>
+
+              <p>
+                JKV Prime does not offer its products or services to residents
+                of the aforementioned restricted jurisdictions.
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+
       {/* FOOTER BOTTOM */}
       <div className={styles.bottom}>
         <div className={styles.container}>
@@ -209,8 +268,8 @@ export default function Footer() {
             </p>
 
             <p className={styles.disclaimer}>
-              Trading leveraged products carries a high level of risk. Prices
-              shown on this site are indicative only.
+              JKV Prime is a brand of JKV Global Capital Market Services
+              Limited.
             </p>
           </div>
         </div>

@@ -4,9 +4,9 @@ import { useEffect, useState, type SyntheticEvent } from "react";
 import styles from "./hero.module.css";
 
 const HERO_MEDIA = {
-  webm: "/JKVGlobalHrobg.webm",
-  mp4: "/JKVGlobalHrobg.mp4",
-  poster: "/JKVGlobalHrobg.webp",
+  webm: "/JKV-Primevideo.webm",
+  mp4: "/JKV-Primevideo.mp4",
+  poster: "/JKV-Primevideo.webp",
 } as const;
 
 type VideoFormat = "webm" | "mp4";
